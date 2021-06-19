@@ -1,0 +1,169 @@
+﻿<Window x:Class="Znajomi.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:local="clr-namespace:Znajomi"
+        xmlns:vm="clr-namespace:Znajomi.ViewModel"
+       
+        mc:Ignorable="d"
+        Title="Znajomi" Height="450" Width="800">
+    
+    <Window.Resources>
+        <vm:MainViewModel x:Key="mainVM"/>
+    </Window.Resources>
+
+    <Grid DataContext="{StaticResource mainVM}">
+        <!-- pojemnik na zakladki -->
+        <TabControl>
+            <!-- zakladka -->
+            <TabItem x:Name="lista_architektow" Header="Lista_Architektow">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="10*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="10*"/>
+                    </Grid.ColumnDefinitions>
+                    <!-- LISTA OSOB  (umozliwia wyswietlanie w tabeli listy)-->
+                    <!-- To co jest aktualnie klinkniete SelectedItem(wlasnosc ktora jest dla listview i nie mozna zmieniac jej nazwy/ona daje rezultat po kliknieciu) bedzie przechowywane w zmiennej:  TabListaVM.BiezacaOsoba -->
+                    <!--ItemsSource(wlasnosc)-zródło danych, czyli to co ma byc wyswietlane w tej liscie -->
+                    <!--SelectedIndex(wlasnosc)-tak jak selescteditem tylko ze indeksy przechowuje -->
+                    <ListView x:Name="architekci_listview" Grid.Column="0"  
+                              SelectedItem="{Binding TabListaArchitektowVM.BiezacyArchitekt}" 
+                              ItemsSource="{Binding TabListaArchitektowVM.Architekci}"
+                              SelectedIndex="{Binding TabListaArchitektowVM.IndeksZaznaczonegoArchitekta, Mode=TwoWay}"
+                    >
+                        <!--Mode TwoWay jest po to, zeby w kodzie bylo odzwierciedlenie tego co jest aktualnie zaznaczonm indexem-->
+                        <!-- reakcja na nacisniecie osoby w liscie-->
+                        <!-- EventName="SelectionChanged"(zdarzenie(to co sie ma stac jak klikniemy na osobe w liscie) command(wlasnosc)-ona wskazuje metodę w kodzie ktora ma byc wykonana po nacisnieciu -->
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <!-- Binding TabListaVM.ZaladujTelefony- to musi byc typu icommand zeby mozna bylo bindowac-->
+                                <i:InvokeCommandAction Command="{Binding TabListaVM.ZaladujTelefony}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                        <ListView.View>
+                            <GridView>
+                                <GridView.Columns>
+                                    <GridViewColumn Width="150" x:Name="kolumna_Nazwisko_architekt">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <!-- nazwisko-kolumna z bazy danych-->
+                                                <TextBlock Text="{Binding Pesel}" FontSize="14"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                        <GridViewColumn.Header>
+                                            <!-- dlugosc textblock-Width-->
+                                            <!-- EventName="MouseDown"-klikniecie myszką-->
+                                            <TextBlock Text="Nazwisko" Background="AliceBlue" Width="{Binding ActualWidth, ElementName=kolumna_Nazwisko}" >
+                                             <i:Interaction.Triggers>
+                                                <i:EventTrigger EventName="MouseDown">
+                                                    <i:InvokeCommandAction Command="{Binding TabListaArchitektowVM.ZaladujWszystkichArchitektow}"/>
+                                                </i:EventTrigger>
+                                              </i:Interaction.Triggers>
+                                            </TextBlock>
+                                        </GridViewColumn.Header>
+                                    </GridViewColumn>
+
+                                    <GridViewColumn>
+                                        <GridViewColumn.CellTemplate>
+                                            <!-- Imie-kolumna okreslamy tu styl i zrodlo danych -->
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding Nazwisko}" />
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                        <GridViewColumn.Header>
+                                            <TextBlock Text="Code"></TextBlock>
+                                        </GridViewColumn.Header>
+                                    </GridViewColumn>
+
+                                    <GridViewColumn >
+                                        <GridViewColumn.CellTemplate >
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding Imie}"  HorizontalAlignment="Stretch"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                        <GridViewColumn.Header>
+                                            <TextBlock Text="Wiek"></TextBlock>
+                                        </GridViewColumn.Header>
+                                    </GridViewColumn>
+
+                                    <GridViewColumn >
+                                        <GridViewColumn.CellTemplate >
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding Numer}"  HorizontalAlignment="Stretch"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                        <GridViewColumn.Header>
+                                            <TextBlock Text="Miasto"></TextBlock>
+                                        </GridViewColumn.Header>
+                                    </GridViewColumn>
+                                </GridView.Columns>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    <!-- LISTA TELEFONOW///// SelectedItem="{Binding TabListaVM.BiezacyTelefon}" 
+                              ItemsSource="{Binding TabListaVM.Telefony}"
+                              SelectedIndex="{Binding TabListaVM.IndeksZaznaczonegoTelefonu}-ZRODLO wyswietlanych DANYCH -->
+                    <ListView x:Name="telefony_architekci" Grid.Column="2" 
+                              SelectedItem="{Binding TabListaVM.BiezacyTelefon}" 
+                              ItemsSource="{Binding TabListaVM.Telefony}"
+                              SelectedIndex="{Binding TabListaVM.IndeksZaznaczonegoTelefonu}"
+                    >
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction Command="{Binding TabListaVM.ZaladujOsoby}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+
+                        <ListView.View>
+                            <GridView>
+                                <GridView.Columns>
+                                    <GridViewColumn Width="200" x:Name="kolumna1_architekt" >
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding Numer}" FontSize="14"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                        <GridViewColumn.Header>
+                                            <TextBlock Text="Numer" Background="AliceBlue" Width="{Binding ActualWidth, ElementName=kolumna1}" >
+                                             <i:Interaction.Triggers>
+                                                <i:EventTrigger EventName="MouseDown">
+                                                    <i:InvokeCommandAction Command="{Binding TabListaVM.ZaladujWszystkieTelefony}"/>
+                                                </i:EventTrigger>
+                                              </i:Interaction.Triggers>
+                                            </TextBlock>
+                                        </GridViewColumn.Header>
+                                    </GridViewColumn>
+
+                                    <GridViewColumn>
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding Typ}" />
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                        <GridViewColumn.Header>
+                                            <TextBlock Text="Typ"></TextBlock>
+                                        </GridViewColumn.Header>
+                                    </GridViewColumn>
+
+                                    <GridViewColumn >
+                                        <GridViewColumn.CellTemplate >
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding Operator}"  HorizontalAlignment="Stretch"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                        <GridViewColumn.Header>
+                                            <TextBlock Text="Operator"></TextBlock>
+                                        </GridViewColumn.Header>
+                                    </GridViewColumn>
+                                </GridView.Columns>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>
