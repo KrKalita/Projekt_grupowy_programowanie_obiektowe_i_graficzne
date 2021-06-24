@@ -1,0 +1,15 @@
+C:\Users\Marta\source\repos\Projekt_POiG\projekt\projekt\bin\Debug\projekt.exe.config
+C:\Users\Marta\source\repos\Projekt_POiG\projekt\projekt\bin\Debug\projekt.exe
+C:\Users\Marta\source\repos\Projekt_POiG\projekt\projekt\bin\Debug\projekt.pdb
+C:\Users\Marta\source\repos\Projekt_POiG\projekt\projekt\obj\Debug\projekt.csprojAssemblyReference.cache
+C:\Users\Marta\source\repos\Projekt_POiG\projekt\projekt\obj\Debug\View\MainWindow.g.cs
+C:\Users\Marta\source\repos\Projekt_POiG\projekt\projekt\obj\Debug\App.g.cs
+C:\Users\Marta\source\repos\Projekt_POiG\projekt\projekt\obj\Debug\projekt_MarkupCompile.cache
+C:\Users\Marta\source\repos\Projekt_POiG\projekt\projekt\obj\Debug\projekt_MarkupCompile.lref
+C:\Users\Marta\source\repos\Projekt_POiG\projekt\projekt\obj\Debug\View\MainWindow.baml
+C:\Users\Marta\source\repos\Projekt_POiG\projekt\projekt\obj\Debug\projekt.g.resources
+C:\Users\Marta\source\repos\Projekt_POiG\projekt\projekt\obj\Debug\projekt.Properties.Resources.resources
+C:\Users\Marta\source\repos\Projekt_POiG\projekt\projekt\obj\Debug\projekt.csproj.GenerateResource.cache
+C:\Users\Marta\source\repos\Projekt_POiG\projekt\projekt\obj\Debug\projekt.csproj.CoreCompileInputs.cache
+C:\Users\Marta\source\repos\Projekt_POiG\projekt\projekt\obj\Debug\projekt.exe
+C:\Users\Marta\source\repos\Projekt_POiG\projekt\projekt\obj\Debug\projekt.pdb
