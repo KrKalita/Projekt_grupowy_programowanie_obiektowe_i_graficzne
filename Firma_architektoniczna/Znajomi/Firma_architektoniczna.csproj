@@ -152,7 +152,9 @@
     <Compile Include="DAL\Encje\Osoba.cs" />
     <Compile Include="DAL\Encje\Posiadanie.cs" />
     <Compile Include="DAL\Encje\Telefon.cs" />
+    <Compile Include="DAL\Encje\Umowa.cs" />
     <Compile Include="DAL\Repozytoria\RepozytoriumArchitekci.cs" />
+    <Compile Include="DAL\Repozytoria\RepozytoriumUmowy.cs" />
     <Compile Include="Model\Model.cs" />
     <Compile Include="DAL\Repozytoria\RepozytoriumPosiadanie.cs" />
     <Compile Include="DAL\Repozytoria\RepozytoriumTelefony.cs" />

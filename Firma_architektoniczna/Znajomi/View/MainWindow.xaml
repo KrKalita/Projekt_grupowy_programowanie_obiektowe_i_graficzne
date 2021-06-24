@@ -40,7 +40,7 @@
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="SelectionChanged">
                                 <!-- Binding TabListaVM.ZaladujTelefony- to musi byc typu icommand zeby mozna bylo bindowac-->
-                                <i:InvokeCommandAction Command="{Binding TabListaVM.ZaladujTelefony}"/>
+                                <i:InvokeCommandAction Command="{Binding TabListaArchitektowVM.ZaladujUmowy}"/>
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
                         <ListView.View>
@@ -106,7 +106,7 @@
                     <!-- LISTA TELEFONOW///// SelectedItem="{Binding TabListaVM.BiezacyTelefon}" 
                               ItemsSource="{Binding TabListaVM.Telefony}"
                               SelectedIndex="{Binding TabListaVM.IndeksZaznaczonegoTelefonu}-ZRODLO wyswietlanych DANYCH -->
-                    <ListView x:Name="telefony_architekci" Grid.Column="2" 
+                    <!--<ListView x:Name="umowy_architekci" Grid.Column="2" 
                               SelectedItem="{Binding TabListaVM.BiezacyTelefon}" 
                               ItemsSource="{Binding TabListaVM.Telefony}"
                               SelectedIndex="{Binding TabListaVM.IndeksZaznaczonegoTelefonu}"
@@ -158,6 +158,53 @@
                                             <TextBlock Text="Operator"></TextBlock>
                                         </GridViewColumn.Header>
                                     </GridViewColumn>
+                                </GridView.Columns>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>-->
+                    <ListView x:Name="projekty" Grid.Column="2"   
+                        ItemsSource="{Binding TabListaArchitektowVM.Umowy}">
+
+                        <ListView.View>
+                            <GridView>
+                                <GridView.Columns>
+
+                                    <GridViewColumn Width="120">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding NazwaProjektu}" FontSize="14"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                        <GridViewColumn.Header>
+                                            <TextBlock Text="Nazwa Projektu">
+
+                                            </TextBlock>
+                                        </GridViewColumn.Header>
+                                    </GridViewColumn>
+
+                                    <GridViewColumn Width="120">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding Klient}" />
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                        <GridViewColumn.Header>
+                                            <TextBlock Text="Klient"></TextBlock>
+                                        </GridViewColumn.Header>
+                                    </GridViewColumn>
+
+                                    <GridViewColumn Width="120">
+                                        <GridViewColumn.CellTemplate >
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding TerminOstateczny}"  HorizontalAlignment="Stretch"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                        <GridViewColumn.Header>
+                                            <TextBlock Text="Termin realizacji"></TextBlock>
+                                        </GridViewColumn.Header>
+                                    </GridViewColumn>
+
+
                                 </GridView.Columns>
                             </GridView>
                         </ListView.View>
@@ -312,7 +359,7 @@
                 </Grid>
             </TabItem>
             <!-- zakladka -->
-            <TabItem x:Name="dodajOsobe" Header="Dodaj osobę">
+            <TabItem x:Name="zarzadzajArchitektami" Header="Zarzadzaj Architektami">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="2*"/>

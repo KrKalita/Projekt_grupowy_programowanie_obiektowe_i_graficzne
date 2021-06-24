@@ -21,6 +21,7 @@ namespace Znajomi.ViewModel
 
         private Model model = null;
         private ObservableCollection<Architekt> architekci = null;
+        private ObservableCollection<Umowa> umowy = null;
         private ObservableCollection<Osoba> osoby = null;
         private ObservableCollection<Telefon> telefony = null;
 
@@ -36,6 +37,7 @@ namespace Znajomi.ViewModel
         {
             this.model = model;
             architekci = model.Architekci;
+            umowy = model.Umowy;
             osoby = model.Osoby;
             Telefony = model.Telefony;
         }
@@ -72,7 +74,7 @@ namespace Znajomi.ViewModel
             }
         }
 
-        public Osoba BiezacyArchitekt { get; set; }
+        public Architekt BiezacyArchitekt { get; set; }
 
         public ObservableCollection<Architekt> Architekci
         {
@@ -81,6 +83,16 @@ namespace Znajomi.ViewModel
             {
                 architekci= value;
                 onPropertyChanged(nameof(Architekci));
+            }
+        }
+
+        public ObservableCollection<Umowa> Umowy
+        {
+            get { return umowy; }
+            set
+            {
+                umowy = value;
+                onPropertyChanged(nameof(Umowy));
             }
         }
 
@@ -133,6 +145,23 @@ namespace Znajomi.ViewModel
             }
         }
 
+        private ICommand zaladujUmowy = null;
+        public ICommand ZaladujUmowy
+        {
+            get
+            {
+                if (zaladujUmowy == null)
+                    zaladujUmowy = new RelayCommand(
+                        arg => {
+                            if (BiezacyArchitekt != null)
+                                Umowy = model.PobierzUmowyArchitekta(BiezacyArchitekt);
+                        },
+                        arg => true
+                        );
+
+                return zaladujUmowy;
+            }
+        }
 
         private ICommand zaladujTelefony = null;
            public ICommand ZaladujTelefony {

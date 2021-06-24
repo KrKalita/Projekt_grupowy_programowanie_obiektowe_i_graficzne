@@ -15,6 +15,8 @@ namespace Znajomi.Model
         //stan bazy
         public ObservableCollection<Architekt> Architekci { get; set; } = new ObservableCollection<Architekt>();//przechowuje liste osob z bazy danych
 
+        public ObservableCollection<Umowa> Umowy { get; set; } = new ObservableCollection<Umowa>();//przechowuje liste osob z bazy danych
+
         public ObservableCollection<Osoba> Osoby { get; set; } = new ObservableCollection<Osoba>();//przechowuje liste osob z bazy danych
         public ObservableCollection<Telefon> Telefony { get; set; } = new ObservableCollection<Telefon>();//przechowuje liste telefonow z bazy danych
         public ObservableCollection<Posiadanie> Posiadanie { get; set; } = new ObservableCollection<Posiadanie>();
@@ -26,6 +28,10 @@ namespace Znajomi.Model
             var architekci = RepozytoriumArchitekci.PobierzWszystkichArchitektow();//var-typ automatyczny, c# sam wykmini jaki to typ
             foreach (var a in architekci)
                 Architekci.Add(a);//dodanie architekta
+
+            var umowy = RepozytoriumUmowy.PobierzWszystkieUmowy();//var-typ automatyczny, c# sam wykmini jaki to typ
+            foreach (var u in umowy)
+                Umowy.Add(u);//dodanie umowy
 
             //var osoby= RepozytoriumOsoby.PobierzWszystkieOsoby();//var-typ automatyczny, c# sam wykmini jaki to typ
             //foreach (var o in osoby)
@@ -39,6 +45,10 @@ namespace Znajomi.Model
         }
 
 
+        public ObservableCollection<Umowa> PobierzUmowyArchitekta(Architekt architekt)
+        {
+            return RepozytoriumUmowy.PobierzUmowyArchitekta(architekt);
+        }
 
         private Telefon ZnajdzTelefonPoId(sbyte id)
         {
