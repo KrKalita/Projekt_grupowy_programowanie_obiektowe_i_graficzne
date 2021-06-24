@@ -10,27 +10,31 @@ namespace projekt.DAL.Repozytoria
     using MySqlConnector;
     using System.Windows;
 
-    static class RepozytoriumArchitekci
+    static class RepozytoriumUmowy
     {
         #region ZAPYTANIA
-        private const string WSZYSCY_ARCHITEKCI = "SELECT * FROM architekci";
+        private const string WSZYSTKIE_UMOWY = "SELECT * FROM umowy";
         #endregion
 
 
-        public static List<Architekt> PobierzWszystkichArchitektow()
+        public static List<Umowa> PobierzUmowyArchitekta(Architekt architekt)
         {
-            List<Architekt> architekci = new List<Architekt>();
+            
+            List<Umowa> umowy = new List<Umowa>();
+
+            if (architekt == null)
+                return umowy;
 
             using (var connection = DBConnection.Instance.Connection)
             {
-                MySqlCommand command = new MySqlCommand(WSZYSCY_ARCHITEKCI, connection);
+                MySqlCommand command = new MySqlCommand($"SELECT * FROM umowy WHERE pesel=\"{architekt.Pesel}\"", connection);
                 connection.Open();
                 var reader = command.ExecuteReader();
                 while (reader.Read())
-                    architekci.Add(new Architekt(reader));
+                    umowy.Add(new Umowa(reader));
                 connection.Close();
             }
-            return architekci;
+            return umowy;
         }
     }
 }

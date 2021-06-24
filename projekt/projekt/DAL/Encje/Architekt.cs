@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace projekt.DAL.Encje
 {
-    class Architekt
+    public class Architekt
     {
         #region Własności
             public string Pesel { get; set; }  
