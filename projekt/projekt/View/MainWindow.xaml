@@ -1,0 +1,22 @@
+﻿<Window x:Class="projekt.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:projekt"  xmlns:vm="clr-namespace:projekt.ViewModel" xmlns:view="clr-namespace:projekt.View"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Window.DataContext>
+        <vm:MainViewModel x:Name="vm"/>
+    </Window.DataContext>
+    <Grid>
+        <TabControl>
+            <TabItem x:Name="architekci" Header="Architekci">
+                <view:ListaArchitektow Grid.Column="0"/>
+            </TabItem>
+            <TabItem x:Name="zarzadzajArchitektami" Header="Zarządzaj Architektami">
+                <!--<view:ListaArchitektow Grid.Column="0"/>-->
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>
