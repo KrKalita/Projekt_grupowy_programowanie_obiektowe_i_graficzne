@@ -18,7 +18,7 @@
         <!-- pojemnik na zakladki -->
         <TabControl>
             <!-- zakladka -->
-            <TabItem x:Name="lista_architektow" Header="Lista_Architektow">
+            <TabItem x:Name="lista_architektow" Header="Lista Architektow">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="10*"/>
