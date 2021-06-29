@@ -13,8 +13,7 @@ namespace Znajomi.DAL.Encje
         public string Pesel { get; set; }
         public string Imie { get; set; }
         public string Nazwisko { get; set; }
-
-        public int Numer { get; set; }
+        public string Numer { get; set; }
         #endregion
 
         #region Konstruktory
@@ -25,15 +24,15 @@ namespace Znajomi.DAL.Encje
             Pesel = reader["pesel"].ToString();//tostring zmienia typ na string//sbyte.Parse zmiana typu na sbyte//ostatecznie typ sbyte(typ liczbowy)
             Imie = reader["imię"].ToString();//tu string sam
             Nazwisko = reader["nazwisko"].ToString();
-            Numer = int.Parse(reader["numer"].ToString());
+            Numer = reader["numer"].ToString();
         }
         //konstruktor tworzacy obiekt nie dodany jeszcze do bazy z id pustym
-        public Architekt(string imie, string nazwisko, sbyte wiek, string miasto)
+        public Architekt(string imie, string nazwisko, string pesel, string telefon)
         {
-            Pesel = null;
+            Pesel = pesel.Trim();
             Imie = imie.Trim();
             Nazwisko = nazwisko.Trim();
-            Numer = wiek;
+            Numer = telefon.Trim();
         }
 
         public Architekt(Architekt architekt)
@@ -57,7 +56,7 @@ namespace Znajomi.DAL.Encje
         //metoda generuje string dla INSERT TO (nazwisko, imie, wiek, miasto)
         public string ToInsert()
         {
-            return $"('{Pesel}', '{Imie}', {Nazwisko},'{Numer}')";
+            return $"('{Pesel}', '{Imie}', '{Nazwisko}','{Numer}')";
         }
         // dzięki przeciążeniu tej metody, Contains (metoda wywoływana w innym miejscu w kodzie, wtedy kiedy chcemy sprawdzać czy elemernt należy do kolekcji)w liście sprawdzi czy dany obiekt do niej należy
         public override bool Equals(object obj)

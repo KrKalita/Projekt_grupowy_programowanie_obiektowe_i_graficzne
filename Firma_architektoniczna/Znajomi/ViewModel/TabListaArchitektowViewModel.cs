@@ -70,7 +70,6 @@ namespace Znajomi.ViewModel
             }
         }
 
-        public Osoba BiezacaOsoba { get; set; }
         #endregion
 
         #region Metody
