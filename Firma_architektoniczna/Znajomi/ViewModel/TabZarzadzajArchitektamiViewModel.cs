@@ -27,6 +27,7 @@ namespace Znajomi.ViewModel
         private string imie="", nazwisko="", pesel="", telefon="";
         private int idZaznaczenia = -1;
         private bool dodawanieDostepne = false;
+        private bool usunDostepne = false;
         private bool edycjaDostepna = false;
         #endregion
 
@@ -98,10 +99,16 @@ namespace Znajomi.ViewModel
             get { return idZaznaczenia; }
             set { idZaznaczenia = value;
                 onPropertyChanged(nameof(IdZaznaczenia));
+
+                if (idZaznaczenia == -1)
+                    UsunDostepne = false;
+                else
+                    UsunDostepne = true;
             }
         }
         public ObservableCollection<Architekt> Architekci { get; set; }
         //ta wlasciwosc jest potrzebna czy mozna kliknąć przycisk dodawania do bazy
+
         public bool DodawanieDostepne
         {
             get { return dodawanieDostepne; }
@@ -122,6 +129,16 @@ namespace Znajomi.ViewModel
                 onPropertyChanged(nameof(EdycjaDostepna));
             }
         }
+
+        public bool UsunDostepne
+        {
+            get { return usunDostepne; }
+            set
+            {
+                usunDostepne = value;
+                onPropertyChanged(nameof(UsunDostepne));
+            }
+        }
         #endregion
 
         //trzeba wyczyścic pole tekstowe trzeba zeby wprowadzic nowe dane
@@ -131,8 +148,10 @@ namespace Znajomi.ViewModel
             Nazwisko = "";
             Telefon = "";
             Pesel = "";
-            DodawanieDostepne = true;
+            IdZaznaczenia = -1;
+            DodawanieDostepne = false;
             EdycjaDostepna = false;
+            UsunDostepne = false;
         }
 
         private void SprawdzPoprawnoscDanych()
@@ -236,6 +255,7 @@ namespace Znajomi.ViewModel
                                 Pesel = "";
                                 DodawanieDostepne = false;
                                 EdycjaDostepna = false;
+                                UsunDostepne = false;
                             }
                         }
                         ,
@@ -263,15 +283,41 @@ namespace Znajomi.ViewModel
                    arg =>
                         {
                             model.EdytujArchitektaWBazie(new Architekt(Imie, Nazwisko, Pesel, Telefon), BiezacyArchitekt.Pesel);
-                            IdZaznaczenia = -1;
-                            DodawanieDostepne = false;
-                                                   }
+                            CzyscFormularz();
+                            System.Windows.MessageBox.Show("Architekt został zmodyfikowany!");
+                        }
                         ,
                    arg => (BiezacyArchitekt?.Imie != Imie)||(BiezacyArchitekt?.Nazwisko!=Nazwisko)||(BiezacyArchitekt?.Pesel!= Pesel) ||(BiezacyArchitekt?.Numer!=Telefon)
                   );
 
 
                 return edytuj;
+            }
+        }
+
+        private ICommand usun = null;
+        public ICommand Usun
+        {
+            get
+            {
+                if (usun == null)
+                    usun = new RelayCommand(
+                    arg =>
+                    {
+                        if (MessageBox.Show("Jesteś pewien, że chcesz usunąć architekta?", "Czy chcesz usunąć?", MessageBoxButton.YesNo, MessageBoxImage.Warning)
+                        == MessageBoxResult.Yes)
+                        {
+                            model.UsunArchitektaZBazy(BiezacyArchitekt.Pesel);
+                            CzyscFormularz();
+                            System.Windows.MessageBox.Show("Architekt został usunięty!");
+                        }
+                    }
+                         ,
+                    arg => (true)
+                   );
+
+
+                return usun;
             }
         }
         #endregion

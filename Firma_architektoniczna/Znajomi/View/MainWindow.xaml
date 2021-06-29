@@ -333,6 +333,11 @@
                                     IsEnabled="{Binding TabZarzadzajArchitektamiVM.EdycjaDostepna, Mode=OneWay}"
                              />
                         </Grid>
+                        <Button x:Name="button_Usun" Grid.Column="1" Content="Usuń" Width="150px"
+                                    Margin="5"
+                                    Command="{Binding TabZarzadzajArchitektamiVM.Usun}"
+                                    IsEnabled="{Binding TabZarzadzajArchitektamiVM.UsunDostepne, Mode=OneWay}"
+                             />
                     </StackPanel>
                     <!-- LISTA OSOB(tez mozna zrobic listview jak chcesz)  -->
                     <DataGrid 

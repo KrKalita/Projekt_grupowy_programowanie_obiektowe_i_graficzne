@@ -69,11 +69,23 @@ namespace Znajomi.DAL.Repozytoria
             return stan;
         }
 
-        public static bool UsunArchitektaZBazy(Osoba osoba)
+        public static bool UsunArchitektaZBazy(string pesel)
         {
-            //implementacja/mozna dodac jak sie chce
-            return true;
+            bool stan = false;//informacja czy sie udalo wykonać operacje na bazie danych
+            using (var connection = DBConnection.Instance.Connection)
+            {
+                string USUN_ARCHITEKTA = $"DELETE FROM `architekci` WHERE pesel='{pesel}'";
+
+                MySqlCommand command = new MySqlCommand(USUN_ARCHITEKTA, connection);
+                connection.Open();
+                var n = command.ExecuteNonQuery();
+                if (n == 1) stan = true;
+
+                connection.Close();
+            }
+            return stan;
         }
+
         #endregion
     }
 }

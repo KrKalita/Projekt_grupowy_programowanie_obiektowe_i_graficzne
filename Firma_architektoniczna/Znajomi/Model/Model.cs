@@ -171,5 +171,19 @@ namespace Znajomi.Model
             return false;
         }
 
+        public bool UsunArchitektaZBazy(string pesel)
+        {
+            if (RepozytoriumArchitekci.UsunArchitektaZBazy(pesel))
+            {
+                Architekci.Clear();
+
+                var architekci = RepozytoriumArchitekci.PobierzWszystkichArchitektow();
+                foreach (var a in architekci)
+                    Architekci.Add(a);
+                return true;
+            }
+            return false;
+        }
+
     }
 }
