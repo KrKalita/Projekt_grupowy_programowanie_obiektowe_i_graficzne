@@ -8,11 +8,13 @@ using MySql.Data.MySqlClient;
 namespace Znajomi.DAL.Repozytoria
 {
     using Encje;
+    using System.Windows;
+
     static class RepozytoriumArchitekci
     {   
         #region ZAPYTANIA
         private const string WSZYSCY_ARCHITEKCI = "SELECT * FROM architekci";
-        private const string DODAJ_ARCHITEKTA = "INSERT INTO `architekci`(`pesel`, `imię`, `nazwisko`, `numer`) VALUES ";
+        private const string DODAJ_ARCHITEKTA = "INSERT INTO `firma_architektoniczna`.`architekci`(`pesel`, `imię`, `nazwisko`, `numer`) VALUES ";
         #endregion
 
         #region metody CRUD 
@@ -42,20 +44,20 @@ namespace Znajomi.DAL.Repozytoria
             {
                 MySqlCommand command = new MySqlCommand($"{DODAJ_ARCHITEKTA} {architekt.ToInsert()}", connection);
                 connection.Open();
-                var id = command.ExecuteNonQuery();//wykonuje zapytanie do bazy danych //dla insert
+                command.ExecuteNonQuery();//wykonuje zapytanie do bazy danych //dla insert
                 stan = true;
                 connection.Close();
             }
             return stan;
         }
 
-        public static bool EdytujrchitektaWBazie(Architekt architekt, sbyte idOsoby)
+        public static bool EdytujArchitektaWBazie(Architekt architekt, string pesel)
         {
             bool stan = false;//informacja czy sie udalo wykonać operacje na bazie danych
             using (var connection = DBConnection.Instance.Connection)
             {
-                string EDYTUJ_ARCHITEKTA = $"UPDATE osoby SET pesel='{architekt.Pesel}', imie='{architekt.Imie}', nazwisko='{architekt.Nazwisko}', " +
-                    $"numer={architekt.Numer} WHERE pesel={architekt.Pesel}";
+                string EDYTUJ_ARCHITEKTA = $"UPDATE architekci SET pesel='{architekt.Pesel}', imię='{architekt.Imie}', nazwisko='{architekt.Nazwisko}', " +
+                    $"numer='{architekt.Numer}' WHERE pesel='{pesel}'";
 
                 MySqlCommand command = new MySqlCommand(EDYTUJ_ARCHITEKTA, connection);
                 connection.Open();
@@ -67,11 +69,23 @@ namespace Znajomi.DAL.Repozytoria
             return stan;
         }
 
-        public static bool UsunArchitektaZBazy(Osoba osoba)
+        public static bool UsunArchitektaZBazy(string pesel)
         {
-            //implementacja/mozna dodac jak sie chce
-            return true;
+            bool stan = false;//informacja czy sie udalo wykonać operacje na bazie danych
+            using (var connection = DBConnection.Instance.Connection)
+            {
+                string USUN_ARCHITEKTA = $"DELETE FROM `architekci` WHERE pesel='{pesel}'";
+
+                MySqlCommand command = new MySqlCommand(USUN_ARCHITEKTA, connection);
+                connection.Open();
+                var n = command.ExecuteNonQuery();
+                if (n == 1) stan = true;
+
+                connection.Close();
+            }
+            return stan;
         }
+
         #endregion
     }
 }

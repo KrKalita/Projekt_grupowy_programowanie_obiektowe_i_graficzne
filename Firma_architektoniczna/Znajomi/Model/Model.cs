@@ -98,16 +98,16 @@ namespace Znajomi.Model
             return osoby;
         }
 
-        public bool CzyOsobaJestJuzWRepozytorium(Osoba osoba)=>Osoby.Contains(osoba);  // tu "niejawnie" wywoła się metoda Equals
+        public bool CzyArchitektJestJuzWRepozytorium(Architekt architekt) =>Architekci.Contains(architekt);  // tu "niejawnie" wywoła się metoda Equals
         
 
-        public bool DodajOsobeDoBazy(Osoba osoba)
+        public bool DodajArchitektaDoBazy(Architekt architekt)
         {
-            if (!CzyOsobaJestJuzWRepozytorium(osoba))
+            if (!CzyArchitektJestJuzWRepozytorium(architekt))
             {
-                if (RepozytoriumOsoby.DodajOsobeDoBazy(osoba))
+                if (RepozytoriumArchitekci.DodajArchitektaDoBazy(architekt))
                 {
-                    Osoby.Add(osoba);
+                    Architekci.Add(architekt);
                     return true;
                 }
             }
@@ -147,18 +147,39 @@ namespace Znajomi.Model
         }
 
 
-        public bool EdytujOsobeWBazie(Osoba osoba, sbyte idOsoby)
+        public bool EdytujArchitektaWBazie(Architekt architekt, string pesel)
         {
-            if (RepozytoriumOsoby.EdytujOsobeWBazie(osoba,idOsoby))
+            if (RepozytoriumArchitekci.EdytujArchitektaWBazie(architekt, pesel))
             {
-                for(int i=0;i<Osoby.Count;i++)
-                {
-                    if (Osoby[i].Id == idOsoby)
-                    {
-                        osoba.Id = idOsoby;
-                        Osoby[i] = new Osoba(osoba);
-                    }
-                }
+                Architekci.Clear();
+
+                var architekci = RepozytoriumArchitekci.PobierzWszystkichArchitektow();
+                foreach (var a in architekci)
+                    Architekci.Add(a);
+
+
+                //for(int i=0;i<Architekci.Count;i++)
+                //{
+                //    if (Architekci[i].Pesel == pesel)
+                //    {
+                //        architekt.Pesel = pesel;
+                //        Architekci[i] = new Architekt(architekt);
+                //    }
+                //}
+                return true;
+            }
+            return false;
+        }
+
+        public bool UsunArchitektaZBazy(string pesel)
+        {
+            if (RepozytoriumArchitekci.UsunArchitektaZBazy(pesel))
+            {
+                Architekci.Clear();
+
+                var architekci = RepozytoriumArchitekci.PobierzWszystkichArchitektow();
+                foreach (var a in architekci)
+                    Architekci.Add(a);
                 return true;
             }
             return false;

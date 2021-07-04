@@ -267,7 +267,7 @@ namespace Znajomi.ViewModel
                     edytuj = new RelayCommand(
                     arg =>
                     {
-                        model.EdytujOsobeWBazie(new Osoba(Imie, Nazwisko, (sbyte)Wiek, Miasto), (sbyte)BiezacaOsoba.Id);
+                        //model.EdytujOsobeWBazie(new Osoba(Imie, Nazwisko, (sbyte)Wiek, Miasto), (sbyte)BiezacaOsoba.Id);
                         IdZaznaczenia = -1;
                         DodawanieDostepne = true;
                     }
