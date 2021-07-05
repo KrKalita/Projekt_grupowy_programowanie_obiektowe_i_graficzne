@@ -433,7 +433,70 @@
                     </DataGrid>
                 </Grid>
             </TabItem>
+            <TabItem x:Name="zarzadzajKlientami" Header="Zarzadzaj Klientami">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="3*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" Margin="5">
+                        <TextBlock Text="Nazwa klienta:"/>
+                        <TextBox x:Name="nazwa_klienta"  Text="{Binding TabZarzadzajKlientamiVM.Nazwa_klienta}"/>
+                        <TextBlock Text="Ilość pracowników:"/>
+                        <TextBox x:Name="ilosc_pracownikow" Text="{Binding TabZarzadzajKlientamiVM.Ilosc_pracownikow}"/>
+                        <TextBlock Text="Wartość na rynku:"/>
+                        <TextBox x:Name="wartosc_na_rynku" Text="{Binding TabZarzadzajKlientamiVM.Wartosc_na_rynku}"/>
+                        <TextBlock />
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="1*"/>
+                            </Grid.ColumnDefinitions>
+                            <Button x:Name="button_Dodaj3" Grid.Column="0" Content="Dodaj klienta do bazy"
+                                    Margin="5"
+                                    Command="{Binding TabZarzadzajKlientamiVM.Dodaj}"
+                                    IsEnabled="{Binding TabZarzadzajKlientamiVM.DodawanieDostepne, Mode=OneWay}"
+                             />
+                            <Button x:Name="button_Edytuj3" Grid.Column="1" Content="Edytuj" 
+                                    Margin="5"
+                                    Command="{Binding TabZarzadzajKlientamiVM.Edytuj}"
+                                    IsEnabled="{Binding TabZarzadzajKlientamiVM.EdycjaDostepna, Mode=OneWay}"
+                             />
+                        </Grid>
+                        <Button x:Name="button_Usun3" Grid.Column="1" Content="Usuń" Width="150px"
+                                    Margin="5"
+                                    Command="{Binding TabZarzadzajKlientamiVM.Usun}"
+                                    IsEnabled="{Binding TabZarzadzajKlientamiVM.UsunDostepne, Mode=OneWay}"
+                             />
+                    </StackPanel>
+                    <!-- LISTA OSOB(tez mozna zrobic listview jak chcesz)  -->
+                    <DataGrid 
+                        x:Name="dg_osoby3"
+                        Grid.Column="1"
+                        AutoGenerateColumns="False"
+                        Margin="5"
+                        AlternatingRowBackground="Lavender"
+                        GridLinesVisibility="None"
+                        IsReadOnly="True"
+                        ItemsSource="{Binding TabZarzadzajKlientamiVM.Klienci}"
+                        SelectedItem="{Binding TabZarzadzajKlientamiVM.BiezacyKlient, Mode=TwoWay}"
+                        SelectedIndex="{Binding TabZarzadzajKlientamiVM.IdZaznaczenia, Mode=TwoWay}"    
+                            
+                    >
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Nazwa klienta" Binding="{Binding Nazwa_klienta}"/>
+                            <DataGridTextColumn Header="Ilość pracowników" Binding="{Binding Ilosc_pracownikow}"/>
+                            <DataGridTextColumn Header="Wartość na rynku" Binding="{Binding Wartosc_na_rynku}"/>
+                        </DataGrid.Columns>
 
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction Command="{Binding TabZarzadzajKlientamiVM.LadujFormularz}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
             <!--zakładka-->
             <!--<TabItem x:Name="dodajZnajomego" Header="Dodaj telefon">
                 <Grid>

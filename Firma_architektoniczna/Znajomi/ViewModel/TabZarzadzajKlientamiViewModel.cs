@@ -3,24 +3,22 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using Znajomi.DAL.Encje;
 using Znajomi.ViewModel.BaseClass;
 
-
 namespace Znajomi.ViewModel
 {
     using Znajomi.Model;
-    class TabZarzadzajProjektamiViewModel : ViewModelBase
+    class TabZarzadzajKlientamiViewModel : ViewModelBase
     {
         #region Składowe prywatne
         //referencja do instancji(obiektu) modelu
         private Model model = null;
 
-        private string nazwa_projektu = "", cena = "", czas_wykonania = "";
+        private string nazwa_klienta = "", ilosc_pracownikow = "", wartosc_na_rynku = "";
         private int idZaznaczenia = -1;
         private bool dodawanieDostepne = false;
         private bool usunDostepne = false;
@@ -28,56 +26,51 @@ namespace Znajomi.ViewModel
         #endregion
 
         #region Konstruktory
-        public TabZarzadzajProjektamiViewModel(Model model)
+        public TabZarzadzajKlientamiViewModel(Model model)
         {
             this.model = model;
-            Projekty = model.Projekty;
+            Klienci = model.Klienci;
         }
         #endregion
 
         #region Właściwości
 
-        public Projekt BiezacyProjekt { get; set; }
+        public Klient BiezacyKlient { get; set; }
 
-        public string Nazwa_projektu
+        public string Nazwa_klienta
         {
-            get { return nazwa_projektu; }
+            get { return nazwa_klienta; }
             set
             {
-                nazwa_projektu = value;
+                nazwa_klienta = value;
 
-                onPropertyChanged(nameof(Nazwa_projektu));//to robie zeby zaktualizowalo kolumne imie
+                onPropertyChanged(nameof(Nazwa_klienta));//to robie zeby zaktualizowalo kolumne imie
 
                 SprawdzPoprawnoscDanych();
             }
         }
-
-        public string Cena
+        public string Ilosc_pracownikow
         {
-            get { return cena; }
+            get { return ilosc_pracownikow; }
             set
             {
-                cena = value;
+                ilosc_pracownikow = value;
 
-                onPropertyChanged(nameof(Cena));
+                onPropertyChanged(nameof(Ilosc_pracownikow));//to robie zeby zaktualizowalo kolumne imie
 
                 SprawdzPoprawnoscDanych();
-
-
             }
         }
-        public string Czas_wykonania
+        public string Wartosc_na_rynku
         {
-            get { return czas_wykonania; }
+            get { return wartosc_na_rynku; }
             set
             {
-                czas_wykonania = value;
+                wartosc_na_rynku = value;
 
-                onPropertyChanged(nameof(Czas_wykonania));
+                onPropertyChanged(nameof(Wartosc_na_rynku));//to robie zeby zaktualizowalo kolumne imie
 
                 SprawdzPoprawnoscDanych();
-
-
             }
         }
 
@@ -95,7 +88,7 @@ namespace Znajomi.ViewModel
                     UsunDostepne = true;
             }
         }
-        public ObservableCollection<Projekt> Projekty { get; set; }
+        public ObservableCollection<Klient> Klienci { get; set; }
         //ta wlasciwosc jest potrzebna czy mozna kliknąć przycisk dodawania do bazy
 
         public bool DodawanieDostepne
@@ -133,9 +126,9 @@ namespace Znajomi.ViewModel
         //trzeba wyczyścic pole tekstowe trzeba zeby wprowadzic nowe dane
         private void CzyscFormularz()
         {
-            Nazwa_projektu = "";
-            Cena = "";
-            Czas_wykonania = "";
+            Nazwa_klienta = "";
+            Ilosc_pracownikow = "";
+            Wartosc_na_rynku = "";
             IdZaznaczenia = -1;
             DodawanieDostepne = false;
             EdycjaDostepna = false;
@@ -201,9 +194,9 @@ namespace Znajomi.ViewModel
         {
             //sprawdz czy dany nazwa_projektu juz nie wystepuje
             bool wystepuje = false;
-            for (int i = 0; i < Projekty.Count; i++)
+            for (int i = 0; i < Klienci.Count; i++)
             {
-                if (Projekty[i].Nazwa_projektu == Nazwa_projektu)
+                if (Klienci[i].Nazwa_klienta == Nazwa_klienta)
                 {
                     wystepuje = true;
                 }
@@ -211,7 +204,7 @@ namespace Znajomi.ViewModel
 
 
             //wszystko pasuje
-            if (Sprawdzenie3(Nazwa_projektu) && Sprawdzenie1(Cena) && Sprawdzenie2(Czas_wykonania) && !wystepuje)
+            if (Sprawdzenie3(Nazwa_klienta) && Sprawdzenie2(Ilosc_pracownikow) && Sprawdzenie1(Wartosc_na_rynku) && !wystepuje)
             {
                 DodawanieDostepne = true;
                 if (IdZaznaczenia != -1)
@@ -222,7 +215,7 @@ namespace Znajomi.ViewModel
             {
                 DodawanieDostepne = false;
                 //warunki dla edycji - wszystko pasuje, a pesel jest ten sam co zaznaczonego architekta
-                if (Sprawdzenie3(Nazwa_projektu) && Sprawdzenie1(Cena) && Sprawdzenie2(Czas_wykonania) && IdZaznaczenia != -1 && Nazwa_projektu == BiezacyProjekt.Nazwa_projektu)
+                if (Sprawdzenie3(Nazwa_klienta) && Sprawdzenie2(Ilosc_pracownikow) && Sprawdzenie1(Wartosc_na_rynku) && IdZaznaczenia != -1 && Nazwa_klienta == BiezacyKlient.Nazwa_klienta)
                     EdycjaDostepna = true;
                 else
                     EdycjaDostepna = false;
@@ -246,16 +239,16 @@ namespace Znajomi.ViewModel
                     dodaj = new RelayCommand(
                         arg =>
                         {
-                            var projekt = new Projekt(Nazwa_projektu, Cena, Czas_wykonania);
+                            var klient = new Klient(Nazwa_klienta, Ilosc_pracownikow, Wartosc_na_rynku);
 
-                            if (model.DodajProjektDoBazy(projekt))
+                            if (model.DodajKlientaDoBazy(klient))
                             {
                                 CzyscFormularz();
-                                System.Windows.MessageBox.Show("Projekt został dodany do bazy!");
+                                System.Windows.MessageBox.Show("Klient został dodany do bazy!");
                             }
                         }
                         ,
-                        arg => (Nazwa_projektu != "") && (Cena != "") && (Czas_wykonania != "")
+                        arg => (Nazwa_klienta != "") && (Ilosc_pracownikow != "") && (Wartosc_na_rynku != "")
                         );
 
 
@@ -278,17 +271,17 @@ namespace Znajomi.ViewModel
                         {
                             if (IdZaznaczenia > -1)
                             {
-                                Nazwa_projektu = BiezacyProjekt.Nazwa_projektu;
-                                Cena = BiezacyProjekt.Cena;
-                                Czas_wykonania = BiezacyProjekt.Czas_wykonania;
+                                Nazwa_klienta = BiezacyKlient.Nazwa_klienta;
+                                Ilosc_pracownikow = BiezacyKlient.Ilosc_pracownikow;
+                                Wartosc_na_rynku = BiezacyKlient.Wartosc_na_rynku;
                                 DodawanieDostepne = false;
                                 EdycjaDostepna = true;
                             }
                             else
                             {
-                                Nazwa_projektu = "";
-                                Cena = "";
-                                Czas_wykonania = "";
+                                Nazwa_klienta = "";
+                                Ilosc_pracownikow = "";
+                                Wartosc_na_rynku = "";
                                 DodawanieDostepne = false;
                                 EdycjaDostepna = false;
                                 UsunDostepne = false;
@@ -318,12 +311,12 @@ namespace Znajomi.ViewModel
                     edytuj = new RelayCommand(
                     arg =>
                     {
-                        model.EdytujProjektWBazie(new Projekt(Nazwa_projektu, Cena, Czas_wykonania), BiezacyProjekt.Nazwa_projektu);
+                        model.EdytujKlientaWBazie(new Klient(Nazwa_klienta, Ilosc_pracownikow, Wartosc_na_rynku), BiezacyKlient.Nazwa_klienta);
                         CzyscFormularz();
-                        System.Windows.MessageBox.Show("Projekt został zmodyfikowany!");
+                        System.Windows.MessageBox.Show("Klient został zmodyfikowany!");
                     }
                          ,
-                    arg => (BiezacyProjekt?.Nazwa_projektu != Nazwa_projektu) || (BiezacyProjekt?.Cena != Cena) || (BiezacyProjekt?.Czas_wykonania != Czas_wykonania)
+                    arg => (BiezacyKlient?.Nazwa_klienta != Nazwa_klienta) || (BiezacyKlient?.Ilosc_pracownikow != Ilosc_pracownikow) || (BiezacyKlient?.Wartosc_na_rynku != Wartosc_na_rynku)
                    );
 
 
@@ -340,12 +333,12 @@ namespace Znajomi.ViewModel
                     usun = new RelayCommand(
                     arg =>
                     {
-                        if (MessageBox.Show("Jesteś pewien, że chcesz usunąć Projekt?", "Czy chcesz usunąć?", MessageBoxButton.YesNo, MessageBoxImage.Warning)
+                        if (MessageBox.Show("Jesteś pewien, że chcesz usunąć Klienta?", "Czy chcesz usunąć?", MessageBoxButton.YesNo, MessageBoxImage.Warning)
                         == MessageBoxResult.Yes)
                         {
-                            model.UsunProjektZBazy(BiezacyProjekt.Nazwa_projektu);
+                            model.UsunKlientaZBazy(BiezacyKlient.Nazwa_klienta);
                             CzyscFormularz();
-                            System.Windows.MessageBox.Show("Projekt został usunięty!");
+                            System.Windows.MessageBox.Show("Klient został usunięty!");
                         }
                     }
                          ,

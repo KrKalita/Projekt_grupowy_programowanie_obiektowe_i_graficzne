@@ -18,6 +18,8 @@ namespace Znajomi.Model
         public ObservableCollection<Umowa> Umowy { get; set; } = new ObservableCollection<Umowa>();//przechowuje liste osob z bazy danych
 
         public ObservableCollection<Projekt> Projekty { get; set; } = new ObservableCollection<Projekt>();//przechowuje liste osob z bazy danych
+        public ObservableCollection<Klient> Klienci { get; set; } = new ObservableCollection<Klient>();//przechowuje liste osob z bazy danych
+
         public ObservableCollection<Osoba> Osoby { get; set; } = new ObservableCollection<Osoba>();//przechowuje liste osob z bazy danych
         public ObservableCollection<Telefon> Telefony { get; set; } = new ObservableCollection<Telefon>();//przechowuje liste telefonow z bazy danych
         public ObservableCollection<Posiadanie> Posiadanie { get; set; } = new ObservableCollection<Posiadanie>();
@@ -37,6 +39,10 @@ namespace Znajomi.Model
             var projekty = RepozytoriumProjekty.PobierzWszystkieProjekty();//var-typ automatyczny, c# sam wykmini jaki to typ
             foreach (var b in projekty)
                 Projekty.Add(b);//dodanie architekta
+
+            var klienci = RepozytoriumKlienci.PobierzWszystkichKlientow();//var-typ automatyczny, c# sam wykmini jaki to typ
+            foreach (var c in klienci)
+                Klienci.Add(c);//dodanie architekta
 
             //var osoby= RepozytoriumOsoby.PobierzWszystkieOsoby();//var-typ automatyczny, c# sam wykmini jaki to typ
             //foreach (var o in osoby)
@@ -134,7 +140,21 @@ namespace Znajomi.Model
             }
             return false;
         }
+        public bool CzyKlientJestJuzWRepozytorium(Klient klient) => Klienci.Contains(klient);  // tu "niejawnie" wywoła się metoda Equals
 
+
+        public bool DodajKlientaDoBazy(Klient klient)
+        {
+            if (!CzyKlientJestJuzWRepozytorium(klient))
+            {
+                if (RepozytoriumKlienci.DodajKlientaDoBazy(klient))
+                {
+                    Klienci.Add(klient);
+                    return true;
+                }
+            }
+            return false;
+        }
         // Dodawanie telefonu do bazy danych
         public bool CzyTelefonJestJuzWRepozytorium(Telefon telefon) => Telefony.Contains(telefon);
 
@@ -229,6 +249,43 @@ namespace Znajomi.Model
                 var projekty = RepozytoriumProjekty.PobierzWszystkieProjekty();
                 foreach (var a in projekty)
                     Projekty.Add(a);
+                return true;
+            }
+            return false;
+        }
+        public bool EdytujKlientaWBazie(Klient klient, string nazwa_klienta)
+        {
+            if (RepozytoriumKlienci.EdytujKlientaWBazie(klient, nazwa_klienta))
+            {
+                Klienci.Clear();
+
+                var klienci = RepozytoriumKlienci.PobierzWszystkichKlientow();
+                foreach (var a in klienci)
+                    Klienci.Add(a);
+
+
+                //for(int i=0;i<Architekci.Count;i++)
+                //{
+                //    if (Architekci[i].Pesel == pesel)
+                //    {
+                //        architekt.Pesel = pesel;
+                //        Architekci[i] = new Architekt(architekt);
+                //    }
+                //}
+                return true;
+            }
+            return false;
+        }
+
+        public bool UsunKlientaZBazy(string nazwa_klienta)
+        {
+            if (RepozytoriumKlienci.UsunKlientaZBazy(nazwa_klienta))
+            {
+                Klienci.Clear();
+
+                var klienci = RepozytoriumKlienci.PobierzWszystkichKlientow();
+                foreach (var a in klienci)
+                    Klienci.Add(a);
                 return true;
             }
             return false;

@@ -149,12 +149,14 @@
     </Compile>
     <Compile Include="DAL\DBConnection.cs" />
     <Compile Include="DAL\Encje\Architekt.cs" />
+    <Compile Include="DAL\Encje\Klient.cs" />
     <Compile Include="DAL\Encje\Osoba.cs" />
     <Compile Include="DAL\Encje\Posiadanie.cs" />
     <Compile Include="DAL\Encje\Projekt.cs" />
     <Compile Include="DAL\Encje\Telefon.cs" />
     <Compile Include="DAL\Encje\Umowa.cs" />
     <Compile Include="DAL\Repozytoria\RepozytoriumArchitekci.cs" />
+    <Compile Include="DAL\Repozytoria\RepozytoriumKlienci.cs" />
     <Compile Include="DAL\Repozytoria\RepozytoriumProjekty.cs" />
     <Compile Include="DAL\Repozytoria\RepozytoriumUmowy.cs" />
     <Compile Include="Model\Model.cs" />
@@ -168,6 +170,7 @@
     <Compile Include="ViewModel\TabDodajTelefonViewModel.cs" />
     <Compile Include="ViewModel\TabListaArchitektowViewModel.cs" />
     <Compile Include="ViewModel\TabListaViewModel.cs" />
+    <Compile Include="ViewModel\TabZarzadzajKlientamiViewModel.cs" />
     <Compile Include="ViewModel\TabZarzadzajProjektamiViewModel.cs" />
     <Compile Include="View\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

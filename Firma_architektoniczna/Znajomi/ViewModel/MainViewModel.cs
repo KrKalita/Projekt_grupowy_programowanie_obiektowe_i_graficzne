@@ -22,6 +22,7 @@ namespace Znajomi.ViewModel
         public TabListaViewModel TabListaVM { get; set; }
         public TabZarzadzajArchitektamiViewModel TabZarzadzajArchitektamiVM { get; set; }
         public TabZarzadzajProjektamiViewModel TabZarzadzajProjektamiVM { get; set; }
+        public TabZarzadzajKlientamiViewModel TabZarzadzajKlientamiVM { get; set; }
         public TabDodajTelefonViewModel TabDodajTelefonVM { get; set; } // Dodajemy DodajTelefonViewModel do DataContextu mainVM
 
         public MainViewModel()
@@ -33,6 +34,7 @@ namespace Znajomi.ViewModel
             TabListaVM  = new TabListaViewModel(model);  //obiekt na polczenie modelu danych z interfejsem uzytkownika
             TabZarzadzajArchitektamiVM = new TabZarzadzajArchitektamiViewModel(model);//obiekt na polczenie modelu danych z interfejsem uzytkownika
             TabZarzadzajProjektamiVM = new TabZarzadzajProjektamiViewModel(model);
+            TabZarzadzajKlientamiVM = new TabZarzadzajKlientamiViewModel(model);
             TabDodajTelefonVM = new TabDodajTelefonViewModel(model);//obiekt na polczenie modelu danych z interfejsem uzytkownika
 
         }
