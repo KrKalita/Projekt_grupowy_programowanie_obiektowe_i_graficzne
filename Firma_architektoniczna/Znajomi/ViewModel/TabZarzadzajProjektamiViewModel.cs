@@ -1,30 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
+using Znajomi.DAL.Encje;
+using Znajomi.ViewModel.BaseClass;
+
 
 namespace Znajomi.ViewModel
 {
-    using BaseClass;
     using Znajomi.Model;
-    using Znajomi.DAL.Encje;
-    using System.Collections.ObjectModel;
-    using System.Text.RegularExpressions;
-    using System.Windows;
-
-
-    /// <summary>
-    /// Klasa reprezentująca model widoku dla karty Dodaj osoby
-    /// </summary>
-    class TabZarzadzajArchitektamiViewModel:ViewModelBase
+    class TabZarzadzajProjektamiViewModel : ViewModelBase
     {
         #region Składowe prywatne
         //referencja do instancji(obiektu) modelu
         private Model model = null;
 
-        private string imie="", nazwisko="", pesel="", telefon="";
+        private string nazwa_projektu = "", cena = "", czas_wykonania = "";
         private int idZaznaczenia = -1;
         private bool dodawanieDostepne = false;
         private bool usunDostepne = false;
@@ -32,72 +28,65 @@ namespace Znajomi.ViewModel
         #endregion
 
         #region Konstruktory
-        public TabZarzadzajArchitektamiViewModel(Model model)
+        public TabZarzadzajProjektamiViewModel(Model model)
         {
             this.model = model;
-            Architekci = model.Architekci;
+            Projekty = model.Projekty;
         }
         #endregion
 
         #region Właściwości
 
-        public Architekt BiezacyArchitekt { get; set; }
-        
-        public string Imie {
-            get { return imie; }
-            set 
-            { 
-                imie = value;
+        public Projekt BiezacyProjekt { get; set; }
 
-                onPropertyChanged(nameof(Imie));//to robie zeby zaktualizowalo kolumne imie
-
-                SprawdzPoprawnoscDanych();
-            } 
-        }
-        public string Nazwisko
+        public string Nazwa_projektu
         {
-            get { return nazwisko; }
+            get { return nazwa_projektu; }
             set
             {
-                nazwisko = value;
+                nazwa_projektu = value;
 
-                onPropertyChanged(nameof(Nazwisko));
+                onPropertyChanged(nameof(Nazwa_projektu));//to robie zeby zaktualizowalo kolumne imie
 
                 SprawdzPoprawnoscDanych();
             }
         }
 
-        public string Pesel
+        public string Cena
         {
-            get { return pesel; }
+            get { return cena; }
             set
             {
-                pesel = value;
+                cena = value;
 
-                onPropertyChanged(nameof(Pesel));
+                onPropertyChanged(nameof(Cena));
 
                 SprawdzPoprawnoscDanych();
 
-                
+
             }
         }
-
-        public string Telefon
+        public string Czas_wykonania
         {
-            get { return telefon; }
+            get { return czas_wykonania; }
             set
             {
-                telefon = value;
+                czas_wykonania = value;
 
-                onPropertyChanged(nameof(Telefon));
+                onPropertyChanged(nameof(Czas_wykonania));
 
                 SprawdzPoprawnoscDanych();
+
+
             }
         }
 
-        public int IdZaznaczenia {
+        public int IdZaznaczenia
+        {
             get { return idZaznaczenia; }
-            set { idZaznaczenia = value;
+            set
+            {
+                idZaznaczenia = value;
                 onPropertyChanged(nameof(IdZaznaczenia));
 
                 if (idZaznaczenia == -1)
@@ -106,7 +95,7 @@ namespace Znajomi.ViewModel
                     UsunDostepne = true;
             }
         }
-        public ObservableCollection<Architekt> Architekci { get; set; }
+        public ObservableCollection<Projekt> Projekty { get; set; }
         //ta wlasciwosc jest potrzebna czy mozna kliknąć przycisk dodawania do bazy
 
         public bool DodawanieDostepne
@@ -144,38 +133,88 @@ namespace Znajomi.ViewModel
         //trzeba wyczyścic pole tekstowe trzeba zeby wprowadzic nowe dane
         private void CzyscFormularz()
         {
-            Imie = "";
-            Nazwisko = "";
-            Telefon = "";
-            Pesel = "";
+            Nazwa_projektu = "";
+            Cena = "";
+            Czas_wykonania = "";
             IdZaznaczenia = -1;
             DodawanieDostepne = false;
             EdycjaDostepna = false;
             UsunDostepne = false;
         }
+        private bool Sprawdzenie1(string Cena)
+        {
+            char[] arr;
 
+            arr = Cena.ToCharArray(0, Cena.Length);
+            int b = 0;
+            for (int i = 0; i < Cena.Length; i++)
+            {
+                char[] arrr = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '.', '9' };
+                for (int j = 0; j < 11; j++)
+                {
+                    if (arr[i] != arrr[j])
+                    {
+                        b = b + 1;
+                    }
+                    if (b == 11)
+                    {
+                        return false;
+                    }
+                }
+                b = 0;
+            }
+            return true;
+        }
+        private bool Sprawdzenie2(string Czas_wykonania)
+        {
+            char[] arr;
+
+            arr = Czas_wykonania.ToCharArray(0, Czas_wykonania.Length);
+            int b = 0;
+            for (int i = 0; i < Czas_wykonania.Length; i++)
+            {
+                char[] arrr = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
+                for (int j = 0; j < 10; j++)
+                {
+                    if (arr[i] != arrr[j])
+                    {
+                        b = b + 1;
+                    }
+                    if (b == 10)
+                    {
+                        return false;
+                    }
+                }
+                b = 0;
+            }
+            return true;
+        }
+        private bool Sprawdzenie3(string Nazwa_projektu)
+        {
+            if (Nazwa_projektu.Length > 255)
+            {
+                return false;
+            }
+            return true;
+        }
         private void SprawdzPoprawnoscDanych()
         {
-
-            //wyrazenia regularne
-            Regex imie_reg = new Regex("^\\w{1,30}$");
-            Regex pesel_reg = new Regex("^[0-9]{11}$");
-            Regex tel_reg = new Regex("^[0-9]{9}$");
-
-            //sprawdz czy dany pesel juz nie wystepuje
+            //sprawdz czy dany nazwa_projektu juz nie wystepuje
             bool wystepuje = false;
-            for (int i = 0; i < Architekci.Count; i++)
+            for (int i = 0; i < Projekty.Count; i++)
             {
-                if (Architekci[i].Pesel == Pesel)
+                if (Projekty[i].Nazwa_projektu == Nazwa_projektu)
                 {
                     wystepuje = true;
                 }
             }
+
+
             //wszystko pasuje
-            if (imie_reg.IsMatch(Imie) && imie_reg.IsMatch(Nazwisko) && pesel_reg.IsMatch(Pesel) && tel_reg.IsMatch(Telefon) && !wystepuje)
+            if (Sprawdzenie3(Nazwa_projektu) && Sprawdzenie1(Cena) && Sprawdzenie2(Czas_wykonania) && !wystepuje)
             {
                 DodawanieDostepne = true;
-                if(IdZaznaczenia != -1)
+                if (IdZaznaczenia != -1)
                     EdycjaDostepna = true;
             }
             //cos nie pasuje
@@ -183,7 +222,7 @@ namespace Znajomi.ViewModel
             {
                 DodawanieDostepne = false;
                 //warunki dla edycji - wszystko pasuje, a pesel jest ten sam co zaznaczonego architekta
-                if (imie_reg.IsMatch(Imie) && imie_reg.IsMatch(Nazwisko) && pesel_reg.IsMatch(Pesel) && tel_reg.IsMatch(Telefon) && IdZaznaczenia != -1 && Pesel == BiezacyArchitekt.Pesel)
+                if (Sprawdzenie3(Nazwa_projektu) && Sprawdzenie1(Cena) && Sprawdzenie2(Czas_wykonania) && IdZaznaczenia != -1 && Nazwa_projektu == BiezacyProjekt.Nazwa_projektu)
                     EdycjaDostepna = true;
                 else
                     EdycjaDostepna = false;
@@ -198,29 +237,31 @@ namespace Znajomi.ViewModel
         /// </summary>
         private ICommand dodaj = null;
 
-        public ICommand Dodaj {
+        public ICommand Dodaj
+        {
 
-            get {
+            get
+            {
                 if (dodaj == null)
                     dodaj = new RelayCommand(
                         arg =>
                         {
-                            var architekt = new Architekt(Imie, Nazwisko, Pesel, Telefon);
+                            var projekt = new Projekt(Nazwa_projektu, Cena, Czas_wykonania);
 
-                            if (model.DodajArchitektaDoBazy(architekt))
+                            if (model.DodajProjektDoBazy(projekt))
                             {
                                 CzyscFormularz();
-                                System.Windows.MessageBox.Show("Architekt został dodany do bazy!");
+                                System.Windows.MessageBox.Show("Projekt został dodany do bazy!");
                             }
                         }
                         ,
-                        arg => (Imie != "") && (Nazwisko != "") && (Pesel != "") && (Telefon != "")
-                        ) ; 
-                
-                
+                        arg => (Nazwa_projektu != "") && (Cena != "") && (Czas_wykonania != "")
+                        );
+
+
                 return dodaj;
             }
-        
+
         }
         /// <summary>
         /// Laduj formularz odpowiada za załadowanie formularz zaznaczoną pozycją w tabeli
@@ -237,19 +278,17 @@ namespace Znajomi.ViewModel
                         {
                             if (IdZaznaczenia > -1)
                             {
-                                Imie = BiezacyArchitekt.Imie;
-                                Nazwisko = BiezacyArchitekt.Nazwisko;
-                                Pesel = BiezacyArchitekt.Pesel;
-                                Telefon = BiezacyArchitekt.Numer;
+                                Nazwa_projektu = BiezacyProjekt.Nazwa_projektu;
+                                Cena = BiezacyProjekt.Cena;
+                                Czas_wykonania = BiezacyProjekt.Czas_wykonania;
                                 DodawanieDostepne = false;
                                 EdycjaDostepna = true;
                             }
-                            else 
+                            else
                             {
-                                Imie = "";
-                                Nazwisko = "";
-                                Telefon = "";
-                                Pesel = "";
+                                Nazwa_projektu = "";
+                                Cena = "";
+                                Czas_wykonania = "";
                                 DodawanieDostepne = false;
                                 EdycjaDostepna = false;
                                 UsunDostepne = false;
@@ -276,16 +315,16 @@ namespace Znajomi.ViewModel
             get
             {
                 if (edytuj == null)
-                   edytuj= new RelayCommand(
-                   arg =>
-                        {
-                            model.EdytujArchitektaWBazie(new Architekt(Imie, Nazwisko, Pesel, Telefon), BiezacyArchitekt.Pesel);
-                            CzyscFormularz();
-                            System.Windows.MessageBox.Show("Architekt został zmodyfikowany!");
-                        }
-                        ,
-                   arg => (BiezacyArchitekt?.Imie != Imie)||(BiezacyArchitekt?.Nazwisko!=Nazwisko)||(BiezacyArchitekt?.Pesel!= Pesel) ||(BiezacyArchitekt?.Numer!=Telefon)
-                  );
+                    edytuj = new RelayCommand(
+                    arg =>
+                    {
+                        model.EdytujProjektWBazie(new Projekt(Nazwa_projektu, Cena, Czas_wykonania), BiezacyProjekt.Nazwa_projektu);
+                        CzyscFormularz();
+                        System.Windows.MessageBox.Show("Projekt został zmodyfikowany!");
+                    }
+                         ,
+                    arg => (BiezacyProjekt?.Nazwa_projektu != Nazwa_projektu) || (BiezacyProjekt?.Cena != Cena) || (BiezacyProjekt?.Czas_wykonania != Czas_wykonania)
+                   );
 
 
                 return edytuj;
@@ -301,12 +340,12 @@ namespace Znajomi.ViewModel
                     usun = new RelayCommand(
                     arg =>
                     {
-                        if (MessageBox.Show("Jesteś pewien, że chcesz usunąć architekta?", "Czy chcesz usunąć?", MessageBoxButton.YesNo, MessageBoxImage.Warning)
+                        if (MessageBox.Show("Jesteś pewien, że chcesz usunąć Projekt?", "Czy chcesz usunąć?", MessageBoxButton.YesNo, MessageBoxImage.Warning)
                         == MessageBoxResult.Yes)
                         {
-                            model.UsunArchitektaZBazy(BiezacyArchitekt.Pesel);
+                            model.UsunProjektZBazy(BiezacyProjekt.Nazwa_projektu);
                             CzyscFormularz();
-                            System.Windows.MessageBox.Show("Architekt został usunięty!");
+                            System.Windows.MessageBox.Show("Projekt został usunięty!");
                         }
                     }
                          ,
