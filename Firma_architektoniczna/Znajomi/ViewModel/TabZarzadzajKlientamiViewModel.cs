@@ -142,6 +142,7 @@ namespace Znajomi.ViewModel
             int b = 0;
             for (int i = 0; i < Cena.Length; i++)
             {
+                //zmiana na kropke, bo tak tylko przyjmuje(wpisujesz w aplikacji ".", a w bazie jest "," )
                 char[] arrr = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '.', '9' };
                 for (int j = 0; j < 11; j++)
                 {
