@@ -170,6 +170,7 @@
     <Compile Include="ViewModel\TabDodajTelefonViewModel.cs" />
     <Compile Include="ViewModel\TabListaArchitektowViewModel.cs" />
     <Compile Include="ViewModel\TabListaViewModel.cs" />
+    <Compile Include="ViewModel\TabZarzadzajUmowamiViewModel.cs" />
     <Compile Include="ViewModel\TabZarzadzajKlientamiViewModel.cs" />
     <Compile Include="ViewModel\TabZarzadzajProjektamiViewModel.cs" />
     <Compile Include="View\MainWindow.xaml.cs">

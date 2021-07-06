@@ -140,6 +140,24 @@ namespace Znajomi.Model
             }
             return false;
         }
+
+        public bool CzyUmowaJestJuzWRepozytorium(Umowa umowa) => Umowy.Contains(umowa);  // tu "niejawnie" wywoła się metoda Equals
+
+
+        public bool DodajUmoweDoBazy(Umowa umowa)
+        {
+            if (!CzyUmowaJestJuzWRepozytorium(umowa))
+            {
+                if (RepozytoriumUmowy.DodajUmoweDoBazy(umowa))
+                {
+                    Umowy.Add(umowa);
+                    return true;
+                }
+            }
+            return false;
+        }
+
+
         public bool CzyKlientJestJuzWRepozytorium(Klient klient) => Klienci.Contains(klient);  // tu "niejawnie" wywoła się metoda Equals
 
 
@@ -198,15 +216,20 @@ namespace Znajomi.Model
                 foreach (var a in architekci)
                     Architekci.Add(a);
 
+                return true;
+            }
+            return false;
+        }
+        public bool EdytujUmoweWBazie(Umowa umowa, string id)
+        {
+            if (RepozytoriumUmowy.EdytujUmoweWBazie(umowa, id))
+            {
+                Umowy.Clear();
 
-                //for(int i=0;i<Architekci.Count;i++)
-                //{
-                //    if (Architekci[i].Pesel == pesel)
-                //    {
-                //        architekt.Pesel = pesel;
-                //        Architekci[i] = new Architekt(architekt);
-                //    }
-                //}
+                var umowy = RepozytoriumUmowy.PobierzWszystkieUmowy();
+                foreach (var u in umowy)
+                    Umowy.Add(u);
+
                 return true;
             }
             return false;
@@ -221,6 +244,21 @@ namespace Znajomi.Model
                 var architekci = RepozytoriumArchitekci.PobierzWszystkichArchitektow();
                 foreach (var a in architekci)
                     Architekci.Add(a);
+                return true;
+            }
+            return false;
+        }
+
+        public bool UsunUmoweZBazy(string id)
+        {
+            if (RepozytoriumUmowy.UsunUmoweZBazy(id))
+            {
+                Umowy.Clear();
+
+                var umowy = RepozytoriumUmowy.PobierzWszystkieUmowy();
+                foreach (var u in umowy)
+                    Umowy.Add(u);
+
                 return true;
             }
             return false;
