@@ -214,8 +214,10 @@ namespace Znajomi.ViewModel
             if (Sprawdzenie3(Nazwa_projektu) && Sprawdzenie1(Cena) && Sprawdzenie2(Czas_wykonania) && !wystepuje)
             {
                 DodawanieDostepne = true;
-                if (IdZaznaczenia != -1)
+                if (IdZaznaczenia != -1 && Nazwa_projektu == BiezacyProjekt.Nazwa_projektu)
                     EdycjaDostepna = true;
+                else
+                    EdycjaDostepna = false;
             }
             //cos nie pasuje
             else

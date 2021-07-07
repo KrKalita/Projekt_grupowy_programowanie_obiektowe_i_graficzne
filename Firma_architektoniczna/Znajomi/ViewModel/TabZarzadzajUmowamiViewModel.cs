@@ -221,7 +221,7 @@ namespace Znajomi.ViewModel
         
         private void SprawdzPoprawnoscDanych()
         {
-            Regex nazwa_reg = new Regex("^\\w{1,255}$");
+            Regex nazwa_reg = new Regex("^.{1,255}$");
 
             //wszystko pasuje - data zawarcia jest wcześniej lub w ten sam dzień co termin, a nazwa ma odpowiednią formę
             if (DateTime.Compare(DataZawarcia,Termin)<=0 && nazwa_reg.IsMatch(Nazwa_umowy))

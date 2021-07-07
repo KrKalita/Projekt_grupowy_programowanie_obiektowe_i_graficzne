@@ -208,8 +208,10 @@ namespace Znajomi.ViewModel
             if (Sprawdzenie3(Nazwa_klienta) && Sprawdzenie2(Ilosc_pracownikow) && Sprawdzenie1(Wartosc_na_rynku) && !wystepuje)
             {
                 DodawanieDostepne = true;
-                if (IdZaznaczenia != -1)
+                if (IdZaznaczenia != -1 && Nazwa_klienta == BiezacyKlient.Nazwa_klienta)
                     EdycjaDostepna = true;
+                else
+                    EdycjaDostepna = false;
             }
             //cos nie pasuje
             else

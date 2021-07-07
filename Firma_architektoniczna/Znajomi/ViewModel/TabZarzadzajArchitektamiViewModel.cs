@@ -172,8 +172,10 @@ namespace Znajomi.ViewModel
             if (imie_reg.IsMatch(Imie) && imie_reg.IsMatch(Nazwisko) && pesel_reg.IsMatch(Pesel) && tel_reg.IsMatch(Telefon) && !wystepuje)
             {
                 DodawanieDostepne = true;
-                if(IdZaznaczenia != -1)
+                if(IdZaznaczenia != -1 && Pesel == BiezacyArchitekt.Pesel)
                     EdycjaDostepna = true;
+                else
+                    EdycjaDostepna = false;
             }
             //cos nie pasuje
             else
