@@ -11,6 +11,7 @@ using Znajomi.ViewModel.BaseClass;
 
 namespace Znajomi.ViewModel
 {
+    using System.Text.RegularExpressions;
     using Znajomi.Model;
     class TabZarzadzajUmowamiViewModel : ViewModelBase
     {
@@ -183,8 +184,10 @@ namespace Znajomi.ViewModel
         
         private void SprawdzPoprawnoscDanych()
         {
-            //wszystko pasuje
-            if (DateTime.Compare(DataZawarcia,Termin)<0 && Nazwa_umowy!="")
+            Regex nazwa_reg = new Regex("^\\w{1,255}$");
+
+            //wszystko pasuje - data zawarcia jest wcześniej lub w ten sam dzień co termin, a nazwa ma odpowiednią formę
+            if (DateTime.Compare(DataZawarcia,Termin)<=0 && nazwa_reg.IsMatch(Nazwa_umowy))
             {
                 DodawanieDostepne = true;
                 if (IdZaznaczenia != -1)
