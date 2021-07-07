@@ -19,7 +19,6 @@ namespace Znajomi.ViewModel
         private Model model = new Model();//model to obiekt z 3 listami
 
         public TabListaArchitektowViewModel TabListaArchitektowVM { get; set; }
-        public TabListaViewModel TabListaVM { get; set; }
         public TabZarzadzajArchitektamiViewModel TabZarzadzajArchitektamiVM { get; set; }
         public TabZarzadzajProjektamiViewModel TabZarzadzajProjektamiVM { get; set; }
         public TabZarzadzajKlientamiViewModel TabZarzadzajKlientamiVM { get; set; }
@@ -31,7 +30,6 @@ namespace Znajomi.ViewModel
             //przekazanie referencji do instancji modelu tak
             //aby wszystkie obiekty modeli widoków pracowały na tym samym modelu
             TabListaArchitektowVM = new TabListaArchitektowViewModel(model);  //obiekt na polczenie modelu danych z interfejsem uzytkownika
-            TabListaVM  = new TabListaViewModel(model);  //obiekt na polczenie modelu danych z interfejsem uzytkownika
             TabZarzadzajArchitektamiVM = new TabZarzadzajArchitektamiViewModel(model);//obiekt na polczenie modelu danych z interfejsem uzytkownika
             TabZarzadzajProjektamiVM = new TabZarzadzajProjektamiViewModel(model);
             TabZarzadzajKlientamiVM = new TabZarzadzajKlientamiViewModel(model);

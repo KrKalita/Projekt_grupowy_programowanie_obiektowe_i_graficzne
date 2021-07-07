@@ -130,7 +130,7 @@ namespace Znajomi.ViewModel
         }
         #endregion
 
-        //trzeba wyczyścic pole tekstowe trzeba zeby wprowadzic nowe dane
+        //trzeba wyczyścic pole tekstowe zeby wprowadzic nowe dane
         private void CzyscFormularz()
         {
             Nazwa_projektu = "";
@@ -221,7 +221,7 @@ namespace Znajomi.ViewModel
             else
             {
                 DodawanieDostepne = false;
-                //warunki dla edycji - wszystko pasuje, a pesel jest ten sam co zaznaczonego architekta
+                //warunki dla edycji - wszystko pasuje, a nazwa projektu jest ta sama co zaznaczonego projektu
                 if (Sprawdzenie3(Nazwa_projektu) && Sprawdzenie1(Cena) && Sprawdzenie2(Czas_wykonania) && IdZaznaczenia != -1 && Nazwa_projektu == BiezacyProjekt.Nazwa_projektu)
                     EdycjaDostepna = true;
                 else
@@ -232,9 +232,8 @@ namespace Znajomi.ViewModel
 
         #region Polecenia
 
-        /// <summary>
-        /// Polecenie Dodaj odpowiedzialne za dodane nowek osoby do bazy danych
-        /// </summary>
+
+        //Polecenie Dodaj odpowiedzialne za dodane nowego projektu do bazy danych
         private ICommand dodaj = null;
 
         public ICommand Dodaj
@@ -263,9 +262,9 @@ namespace Znajomi.ViewModel
             }
 
         }
-        /// <summary>
-        /// Laduj formularz odpowiada za załadowanie formularz zaznaczoną pozycją w tabeli
-        /// </summary>
+
+
+        //Laduj formularz odpowiada za załadowanie formularz zaznaczoną pozycją w tabeli
         private ICommand ladujFormularz = null;
         public ICommand LadujFormularz
         {
@@ -304,12 +303,9 @@ namespace Znajomi.ViewModel
 
         }
 
+
+        //Edycja - polecenie odpowiedzialne za edycję dancyh w bazie 
         private ICommand edytuj = null;
-        /// <summary>
-        /// Edycja - polecenie odpowiedzialne za edycję dancyh w bazie 
-        /// dla zaznaczonej pozycji w tabeli 
-        ///  BRAK IMPLEMENTACJI
-        /// </summary>
         public ICommand Edytuj
         {
             get

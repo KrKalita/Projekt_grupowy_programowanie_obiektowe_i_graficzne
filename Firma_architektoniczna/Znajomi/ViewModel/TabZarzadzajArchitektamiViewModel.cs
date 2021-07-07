@@ -15,9 +15,6 @@ namespace Znajomi.ViewModel
     using System.Windows;
 
 
-    /// <summary>
-    /// Klasa reprezentująca model widoku dla karty Dodaj osoby
-    /// </summary>
     class TabZarzadzajArchitektamiViewModel:ViewModelBase
     {
         #region Składowe prywatne
@@ -141,7 +138,7 @@ namespace Znajomi.ViewModel
         }
         #endregion
 
-        //trzeba wyczyścic pole tekstowe trzeba zeby wprowadzic nowe dane
+        //trzeba wyczyścic pole tekstowe zeby wprowadzic nowe dane
         private void CzyscFormularz()
         {
             Imie = "";

@@ -12,9 +12,7 @@ namespace Znajomi.ViewModel
     using BaseClass;
     using System.Windows.Input;
 
-    /// <summary>
-    /// Model widoku dla karty Lista
-    /// </summary>
+
     class TabListaArchitektowViewModel : ViewModelBase
     {
         #region Składowe prywatne

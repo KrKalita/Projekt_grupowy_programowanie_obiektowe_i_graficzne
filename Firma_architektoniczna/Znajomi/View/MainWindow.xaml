@@ -224,6 +224,7 @@
                 </Grid>
             </TabItem>
 
+            <!-- zakladka -->
             <TabItem x:Name="zarzadzajProjektami" Header="Zarzadzaj Projektami">
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -288,7 +289,8 @@
                     </DataGrid>
                 </Grid>
             </TabItem>
-            
+
+            <!-- zakladka -->
             <TabItem x:Name="zarzadzajKlientami" Header="Zarzadzaj Klientami">
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -354,7 +356,7 @@
                 </Grid>
             </TabItem>
 
-
+            <!-- zakladka -->
             <TabItem x:Name="zarzadzajUmowami" Header="Zarzadzaj Umowami">
                 <Grid>
                     <Grid.ColumnDefinitions>

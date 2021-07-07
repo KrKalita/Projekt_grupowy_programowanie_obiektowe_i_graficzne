@@ -134,12 +134,49 @@ namespace Znajomi.ViewModel
                     UsunDostepne = true;
             }
         }
-        public ObservableCollection<Klient> Klienci { get; set; }
-        public ObservableCollection<Architekt> Architekci { get; set; }
-        public ObservableCollection<Projekt> Projekty { get; set; }
-        public ObservableCollection<Umowa> Umowy { get; set; }
-        //ta wlasciwosc jest potrzebna czy mozna kliknąć przycisk dodawania do bazy
 
+        //kolekcje
+        public ObservableCollection<Klient> Klienci 
+        {
+            get { return klienci; }
+            set
+            {
+                klienci = value;
+                onPropertyChanged(nameof(Klienci));
+            }
+        }
+
+        public ObservableCollection<Architekt> Architekci
+        {
+            get { return architekci; }
+            set
+            {
+                architekci = value;
+                onPropertyChanged(nameof(Architekci));
+            }
+        }
+
+        public ObservableCollection<Projekt> Projekty
+        {
+            get { return projekty; }
+            set
+            {
+                projekty = value;
+                onPropertyChanged(nameof(Projekty));
+            }
+        }
+
+        public ObservableCollection<Umowa> Umowy
+        {
+            get { return umowy; }
+            set
+            {
+                umowy = value;
+                onPropertyChanged(nameof(Umowy));
+            }
+        }
+        
+        //ta wlasciwosc jest potrzebna czy mozna kliknąć przycisk dodawania do bazy
         public bool DodawanieDostepne
         {
             get { return dodawanieDostepne; }
@@ -204,9 +241,7 @@ namespace Znajomi.ViewModel
 
         #region Polecenia
 
-        /// <summary>
-        /// Polecenie Dodaj odpowiedzialne za dodane nowek osoby do bazy danych
-        /// </summary>
+        //Polecenie Dodaj odpowiedzialne za dodane nowej umowy do bazy danych
         private ICommand dodaj = null;
 
         public ICommand Dodaj
@@ -235,9 +270,8 @@ namespace Znajomi.ViewModel
             }
 
         }
-        /// <summary>
-        /// Laduj formularz odpowiada za załadowanie formularz zaznaczoną pozycją w tabeli
-        /// </summary>
+
+        //Laduj formularz odpowiada za załadowanie formularz zaznaczoną pozycją w tabeli
         private ICommand ladujFormularz = null;
         public ICommand LadujFormularz
         {
@@ -302,12 +336,9 @@ namespace Znajomi.ViewModel
 
         }
 
+
+        //Edycja - polecenie odpowiedzialne za edycję dancyh w bazie
         private ICommand edytuj = null;
-        /// <summary>
-        /// Edycja - polecenie odpowiedzialne za edycję dancyh w bazie 
-        /// dla zaznaczonej pozycji w tabeli 
-        ///  BRAK IMPLEMENTACJI
-        /// </summary>
         public ICommand Edytuj
         {
             get
