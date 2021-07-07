@@ -53,6 +53,25 @@ namespace Znajomi.DAL.Repozytoria
             }
             return umowy;
         }
+        public static ObservableCollection<Umowa> PobierzUmowyKlienta(Klient klient)
+        {
+
+            ObservableCollection<Umowa> umowy = new ObservableCollection<Umowa>();
+
+            if (klient == null)
+                return umowy;
+
+            using (var connection = DBConnection.Instance.Connection)
+            {
+                MySqlCommand command = new MySqlCommand($"SELECT * FROM umowy WHERE nazwa_klienta=\"{klient.Nazwa_klienta}\"", connection);
+                connection.Open();
+                var reader = command.ExecuteReader();
+                while (reader.Read())
+                    umowy.Add(new Umowa(reader));
+                connection.Close();
+            }
+            return umowy;
+        }
 
 
 

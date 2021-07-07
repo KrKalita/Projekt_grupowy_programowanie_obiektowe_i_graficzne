@@ -46,7 +46,11 @@ namespace Znajomi.Model
         {
             return RepozytoriumUmowy.PobierzUmowyArchitekta(architekt);
         }
-        
+        public ObservableCollection<Umowa> PobierzUmowyKlienta(Klient klient)
+        {
+            return RepozytoriumUmowy.PobierzUmowyKlienta(klient);
+        }
+
 
         public bool CzyArchitektJestJuzWRepozytorium(Architekt architekt) =>Architekci.Contains(architekt);  // tu "niejawnie" wywoła się metoda Equals
         

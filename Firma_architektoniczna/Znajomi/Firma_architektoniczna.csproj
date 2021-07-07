@@ -160,6 +160,7 @@
     <Compile Include="ViewModel\BaseClasses\RelayCommand.cs" />
     <Compile Include="ViewModel\BaseClasses\ViewModelBase.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\TabListaKlientowViewModel.cs" />
     <Compile Include="ViewModel\TabZarzadzajArchitektamiViewModel.cs" />
     <Compile Include="ViewModel\TabListaArchitektowViewModel.cs" />
     <Compile Include="ViewModel\TabZarzadzajUmowamiViewModel.cs" />

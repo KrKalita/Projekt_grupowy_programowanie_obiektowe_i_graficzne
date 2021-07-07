@@ -30,7 +30,6 @@ namespace Znajomi.ViewModel
         {
             this.model = model;
             architekci = model.Architekci;
-            umowy = model.Umowy;
         }
         #endregion
 
