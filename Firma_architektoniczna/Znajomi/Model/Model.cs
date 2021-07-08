@@ -9,6 +9,7 @@ namespace Znajomi.Model
     using DAL.Encje;
     using DAL.Repozytoria;
     using System.Collections.ObjectModel;
+    using System.Windows;
 
     class Model
     {
@@ -52,11 +53,22 @@ namespace Znajomi.Model
         }
 
 
-        public bool CzyArchitektJestJuzWRepozytorium(Architekt architekt) =>Architekci.Contains(architekt);  // tu "niejawnie" wywoła się metoda Equals
-        
+        //public bool CzyArchitektJestJuzWRepozytorium(Architekt architekt) =>Architekci.Contains(architekt);  // tu "niejawnie" wywoła się metoda Equals
+        public bool CzyArchitektJestJuzWRepozytorium(Architekt architekt)
+        {
+            for(int i=0;i<Architekci.Count;i++)
+            {
+                Architekt a = Architekci[i];
+                if (a.Nazwisko == architekt.Nazwisko && a.Imie == architekt.Imie && a.Pesel == architekt.Pesel && a.Numer == architekt.Numer)
+                    return true;
+            }
+            return false;
+        }
+
 
         public bool DodajArchitektaDoBazy(Architekt architekt)
         {
+            MessageBox.Show(CzyArchitektJestJuzWRepozytorium(architekt).ToString());
             if (!CzyArchitektJestJuzWRepozytorium(architekt))
             {
                 if (RepozytoriumArchitekci.DodajArchitektaDoBazy(architekt))
@@ -68,8 +80,19 @@ namespace Znajomi.Model
             return false;
         }
 
-        public bool CzyProjektJestJuzWRepozytorium(Projekt projekt) => Projekty.Contains(projekt);  // tu "niejawnie" wywoła się metoda Equals
+        //public bool CzyProjektJestJuzWRepozytorium(Projekt projekt) => Projekty.Contains(projekt);  // tu "niejawnie" wywoła się metoda Equals
 
+
+        public bool CzyProjektJestJuzWRepozytorium(Projekt projekt)
+        {
+            for (int i = 0; i < Projekty.Count; i++)
+            {
+                Projekt p = Projekty[i];
+                if (p.Cena == projekt.Cena && p.Czas_wykonania == projekt.Czas_wykonania && p.Nazwa_projektu == projekt.Nazwa_projektu)
+                    return true;
+            }
+            return false;
+        }
 
         public bool DodajProjektDoBazy(Projekt projekt)
         {
@@ -84,9 +107,20 @@ namespace Znajomi.Model
             return false;
         }
 
-        public bool CzyUmowaJestJuzWRepozytorium(Umowa umowa) => Umowy.Contains(umowa);  // tu "niejawnie" wywoła się metoda Equals
+        //public bool CzyUmowaJestJuzWRepozytorium(Umowa umowa) => Umowy.Contains(umowa);  // tu "niejawnie" wywoła się metoda Equals
 
 
+
+        public bool CzyUmowaJestJuzWRepozytorium(Umowa umowa)
+        {
+            for (int i = 0; i < Umowy.Count; i++)
+            {
+                Umowa u = Umowy[i];
+                if (u.DataZawarcia == umowa.DataZawarcia && u.TerminOstateczny == umowa.TerminOstateczny && u.Klient == umowa.Klient && u.PeselArchitekta == umowa.PeselArchitekta && u.NazwaProjektu == umowa.NazwaProjektu && u.Nazwa == umowa.Nazwa)
+                    return true;
+            }
+            return false;
+        }
         public bool DodajUmoweDoBazy(Umowa umowa)
         {
             if (!CzyUmowaJestJuzWRepozytorium(umowa))
@@ -101,9 +135,20 @@ namespace Znajomi.Model
         }
 
 
-        public bool CzyKlientJestJuzWRepozytorium(Klient klient) => Klienci.Contains(klient);  // tu "niejawnie" wywoła się metoda Equals
+        //public bool CzyKlientJestJuzWRepozytorium(Klient klient) => Klienci.Contains(klient);  // tu "niejawnie" wywoła się metoda Equals
 
 
+
+        public bool CzyKlientJestJuzWRepozytorium(Klient klient)
+        {
+            for (int i = 0; i < Klienci.Count; i++)
+            {
+                Klient k = Klienci[i];
+                if (k.Ilosc_pracownikow == klient.Ilosc_pracownikow && k.Nazwa_klienta == klient.Nazwa_klienta && k.Wartosc_na_rynku == klient.Wartosc_na_rynku)
+                    return true;
+            }
+            return false;
+        }
         public bool DodajKlientaDoBazy(Klient klient)
         {
             if (!CzyKlientJestJuzWRepozytorium(klient))
