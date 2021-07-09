@@ -68,7 +68,6 @@ namespace Znajomi.Model
 
         public bool DodajArchitektaDoBazy(Architekt architekt)
         {
-            MessageBox.Show(CzyArchitektJestJuzWRepozytorium(architekt).ToString());
             if (!CzyArchitektJestJuzWRepozytorium(architekt))
             {
                 if (RepozytoriumArchitekci.DodajArchitektaDoBazy(architekt))
