@@ -54,15 +54,7 @@
                                             </DataTemplate>
                                         </GridViewColumn.CellTemplate>
                                         <GridViewColumn.Header>
-                                            <!-- dlugosc textblock-Width-->
-                                            <!-- EventName="MouseDown"-klikniecie myszką-->
-                                            <TextBlock Text="Pesel" >
-                                             <i:Interaction.Triggers>
-                                                <i:EventTrigger EventName="MouseDown">
-                                                    <i:InvokeCommandAction Command="{Binding TabListaArchitektowVM.ZaladujWszystkichArchitektow}"/>
-                                                </i:EventTrigger>
-                                              </i:Interaction.Triggers>
-                                            </TextBlock>
+                                            <TextBlock Text="Pesel"></TextBlock>
                                         </GridViewColumn.Header>
                                     </GridViewColumn>
 
@@ -155,151 +147,108 @@
             </TabItem>
 
             <!-- zakladka -->
-            <!--<TabItem x:Name="lista" Header="Lista">
+            <TabItem x:Name="lista_klientow" Header="Lista Klientów">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="10*"/>
                         <ColumnDefinition Width="1*"/>
                         <ColumnDefinition Width="10*"/>
                     </Grid.ColumnDefinitions>
-                    --><!-- LISTA OSOB  (umozliwia wyswietlanie w tabeli listy)-->
-                    <!-- To co jest aktualnie klinkniete SelectedItem(wlasnosc ktora jest dla listview i nie mozna zmieniac jej nazwy/ona daje rezultat po kliknieciu) bedzie przechowywane w zmiennej:  TabListaVM.BiezacaOsoba -->
-                    <!--ItemsSource(wlasnosc)-zródło danych, czyli to co ma byc wyswietlane w tej liscie -->
-                    <!--SelectedIndex(wlasnosc)-tak jak selescteditem tylko ze indeksy przechowuje --><!--
-                    <ListView x:Name="znajomi" Grid.Column="0"  
-                              SelectedItem="{Binding TabListaVM.BiezacaOsoba}" 
-                              ItemsSource="{Binding TabListaVM.Osoby}"
-                              SelectedIndex="{Binding TabListaVM.IndeksZaznaczonejOsoby, Mode=TwoWay}"
+                    
+                    <!-- LISTA KLIENTÓW -->
+                    <ListView Grid.Column="0"  
+                              SelectedItem="{Binding TabListaKlientowVM.BiezacyKlient}" 
+                              ItemsSource="{Binding TabListaKlientowVM.Klienci}"
+                              SelectedIndex="{Binding TabListaKlientowVM.IndeksZaznaczonegoKlienta, Mode=TwoWay}"
                     >
-                        --><!-- reakcja na nacisniecie osoby w liscie-->
-                        <!-- EventName="SelectionChanged"(zdarzenie(to co sie ma stac jak klikniemy na osobe w liscie) command(wlasnosc)-ona wskazuje metodę w kodzie ktora ma byc wykonana po nacisnieciu --><!--
+                        
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="SelectionChanged">
-                                --><!-- Binding TabListaVM.ZaladujTelefony- to musi byc typu icommand zeby mozna bylo bindowac--><!--
-                                <i:InvokeCommandAction Command="{Binding TabListaVM.ZaladujTelefony}"/>
+                                <i:InvokeCommandAction Command="{Binding TabListaKlientowVM.ZaladujUmowy}"/>
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
                         <ListView.View>
                             <GridView>
                                 <GridView.Columns>
-                                    <GridViewColumn Width="150" x:Name="kolumna_Nazwisko">
+                                    <GridViewColumn Width="150">
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
-                                                --><!-- nazwisko-kolumna z bazy danych--><!--
-                                                <TextBlock Text="{Binding Nazwisko}" FontSize="14"/>
+                                                <TextBlock Text="{Binding Nazwa_klienta}" FontSize="14"/>
                                             </DataTemplate>
                                         </GridViewColumn.CellTemplate>
                                         <GridViewColumn.Header>
-                                            --><!-- dlugosc textblock-Width-->
-                                            <!-- EventName="MouseDown"-klikniecie myszką--><!--
-                                            <TextBlock Text="Nazwisko" Background="AliceBlue" Width="{Binding ActualWidth, ElementName=kolumna_Nazwisko}" >
-                                             <i:Interaction.Triggers>
-                                                <i:EventTrigger EventName="MouseDown">
-                                                    <i:InvokeCommandAction Command="{Binding TabListaVM.ZaladujWszystkieOsoby}"/>
-                                                </i:EventTrigger>
-                                              </i:Interaction.Triggers>
-                                            </TextBlock>
+                                            <TextBlock Text="Nazwa"></TextBlock>
                                         </GridViewColumn.Header>
                                     </GridViewColumn>
 
                                     <GridViewColumn>
                                         <GridViewColumn.CellTemplate>
-                                            --><!-- Imie-kolumna okreslamy tu styl i zrodlo danych --><!--
                                             <DataTemplate>
-                                                <TextBlock Text="{Binding Imie}" />
+                                                <TextBlock Text="{Binding Ilosc_pracownikow}" />
                                             </DataTemplate>
                                         </GridViewColumn.CellTemplate>
                                         <GridViewColumn.Header>
-                                            <TextBlock Text="Code"></TextBlock>
+                                            <TextBlock Text="Liczba pracowników"></TextBlock>
                                         </GridViewColumn.Header>
                                     </GridViewColumn>
 
                                     <GridViewColumn >
                                         <GridViewColumn.CellTemplate >
                                             <DataTemplate>
-                                                <TextBlock Text="{Binding Wiek}"  HorizontalAlignment="Stretch"/>
+                                                <TextBlock Text="{Binding Wartosc_na_rynku}"  HorizontalAlignment="Stretch"/>
                                             </DataTemplate>
                                         </GridViewColumn.CellTemplate>
                                         <GridViewColumn.Header>
-                                            <TextBlock Text="Wiek"></TextBlock>
+                                            <TextBlock Text="Wartość na rynku"></TextBlock>
                                         </GridViewColumn.Header>
                                     </GridViewColumn>
 
-                                    <GridViewColumn >
-                                        <GridViewColumn.CellTemplate >
-                                            <DataTemplate>
-                                                <TextBlock Text="{Binding Miasto}"  HorizontalAlignment="Stretch"/>
-                                            </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                        <GridViewColumn.Header>
-                                            <TextBlock Text="Miasto"></TextBlock>
-                                        </GridViewColumn.Header>
-                                    </GridViewColumn>
+                                    
                                 </GridView.Columns>
                             </GridView>
                         </ListView.View>
                     </ListView>
-                    --><!-- LISTA TELEFONOW///// SelectedItem="{Binding TabListaVM.BiezacyTelefon}" 
-                              ItemsSource="{Binding TabListaVM.Telefony}"
-                              SelectedIndex="{Binding TabListaVM.IndeksZaznaczonegoTelefonu}-ZRODLO wyswietlanych DANYCH --><!--
-                    <ListView x:Name="telefony" Grid.Column="2" 
-                              SelectedItem="{Binding TabListaVM.BiezacyTelefon}" 
-                              ItemsSource="{Binding TabListaVM.Telefony}"
-                              SelectedIndex="{Binding TabListaVM.IndeksZaznaczonegoTelefonu}"
-                    >
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="SelectionChanged">
-                                <i:InvokeCommandAction Command="{Binding TabListaVM.ZaladujOsoby}"/>
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
+                    
+                    <!--LISTA UMÓW-->
+                    <ListView Grid.Column="2"   
+                        ItemsSource="{Binding TabListaKlientowVM.Umowy}">
 
                         <ListView.View>
                             <GridView>
                                 <GridView.Columns>
-                                    <GridViewColumn Width="200" x:Name="kolumna1" >
+
+                                    <GridViewColumn Width="120">
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
-                                                <TextBlock Text="{Binding Numer}" FontSize="14"/>
+                                                <TextBlock Text="{Binding NazwaProjektu}" FontSize="14"/>
                                             </DataTemplate>
                                         </GridViewColumn.CellTemplate>
                                         <GridViewColumn.Header>
-                                            <TextBlock Text="Numer" Background="AliceBlue" Width="{Binding ActualWidth, ElementName=kolumna1}" >
-                                             <i:Interaction.Triggers>
-                                                <i:EventTrigger EventName="MouseDown">
-                                                    <i:InvokeCommandAction Command="{Binding TabListaVM.ZaladujWszystkieTelefony}"/>
-                                                </i:EventTrigger>
-                                              </i:Interaction.Triggers>
+                                            <TextBlock Text="Nazwa Projektu">
+
                                             </TextBlock>
                                         </GridViewColumn.Header>
                                     </GridViewColumn>
 
-                                    <GridViewColumn>
-                                        <GridViewColumn.CellTemplate>
+                                    <GridViewColumn Width="120">
+                                        <GridViewColumn.CellTemplate >
                                             <DataTemplate>
-                                                <TextBlock Text="{Binding Typ}" />
+                                                <TextBlock Text="{Binding TerminOstateczny}"  HorizontalAlignment="Stretch"/>
                                             </DataTemplate>
                                         </GridViewColumn.CellTemplate>
                                         <GridViewColumn.Header>
-                                            <TextBlock Text="Typ"></TextBlock>
+                                            <TextBlock Text="Termin realizacji"></TextBlock>
                                         </GridViewColumn.Header>
                                     </GridViewColumn>
 
-                                    <GridViewColumn >
-                                        <GridViewColumn.CellTemplate >
-                                            <DataTemplate>
-                                                <TextBlock Text="{Binding Operator}"  HorizontalAlignment="Stretch"/>
-                                            </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                        <GridViewColumn.Header>
-                                            <TextBlock Text="Operator"></TextBlock>
-                                        </GridViewColumn.Header>
-                                    </GridViewColumn>
+
                                 </GridView.Columns>
                             </GridView>
                         </ListView.View>
                     </ListView>
                 </Grid>
-            </TabItem>-->
+            </TabItem>
+            
             <!-- zakladka -->
             <TabItem x:Name="zarzadzajArchitektami" Header="Zarzadzaj Architektami">
                 <Grid>
@@ -369,6 +318,7 @@
                 </Grid>
             </TabItem>
 
+            <!-- zakladka -->
             <TabItem x:Name="zarzadzajProjektami" Header="Zarzadzaj Projektami">
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -433,6 +383,8 @@
                     </DataGrid>
                 </Grid>
             </TabItem>
+
+            <!-- zakladka -->
             <TabItem x:Name="zarzadzajKlientami" Header="Zarzadzaj Klientami">
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -497,84 +449,81 @@
                     </DataGrid>
                 </Grid>
             </TabItem>
-            <!--zakładka-->
-            <!--<TabItem x:Name="dodajZnajomego" Header="Dodaj telefon">
+
+            <!-- zakladka -->
+            <TabItem x:Name="zarzadzajUmowami" Header="Zarzadzaj Umowami">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="2*"/>
                         <ColumnDefinition Width="3*"/>
                     </Grid.ColumnDefinitions>
                     <StackPanel Grid.Column="0" Margin="5">
-                        <TextBlock Text="Imię:"/>
-                        <TextBox x:Name="imieAddPhone" IsEnabled="False" Text="{Binding TabZarzadzajArchitektamiVM.Imie}"/>
-                        <TextBlock Text="Nazwisko:"/>
-                        <TextBox x:Name="nazwiskoAddPhone" IsEnabled="False" Text="{Binding TabZarzadzajArchitektamiVM.Nazwisko}"/>
+                        <TextBlock Text="Nazwa Umowy:"/>
+                        <TextBox x:Name="nazwa_umowy"  Text="{Binding TabZarzadzajUmowamiVM.Nazwa_umowy}"/>
+                        <TextBlock Text="Projekt:"/>
+                        <ComboBox ItemsSource="{Binding TabZarzadzajUmowamiVM.Projekty}" SelectedItem="{Binding TabZarzadzajUmowamiVM.Projekt}"></ComboBox>
+                        <TextBlock Text="Architekt:"/>
+                        <ComboBox ItemsSource="{Binding TabZarzadzajUmowamiVM.Architekci}" SelectedItem="{Binding TabZarzadzajUmowamiVM.Architekt}"></ComboBox>
+                        <TextBlock Text="Klient:"/>
+                        <ComboBox ItemsSource="{Binding TabZarzadzajUmowamiVM.Klienci}" SelectedItem="{Binding TabZarzadzajUmowamiVM.Klient}"></ComboBox>
+                        <TextBlock Text="Data zawarcia:"/>
+                        <Calendar SelectedDate="{Binding TabZarzadzajUmowamiVM.DataZawarcia, Mode=TwoWay}" SelectionMode="SingleRange"></Calendar>
+                        <TextBlock Text="Termin realizacji:"/>
+                        <Calendar SelectedDate="{Binding TabZarzadzajUmowamiVM.Termin, Mode=TwoWay}"></Calendar>
+                        <TextBlock />
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="1*"/>
                                 <ColumnDefinition Width="1*"/>
                             </Grid.ColumnDefinitions>
-                            <TextBlock Text="Wiek:" Grid.Column="0"/>
-                            <TextBlock Grid.Column="1" Text="{Binding ElementName=wiek, Path=Value}"  HorizontalAlignment="Right" />
-                        </Grid>
-
-                        <Slider x:Name="wiekAddPhone" IsEnabled="False" Maximum="100" Value="{Binding TabZarzadzajArchitektamiVM.Wiek}" TickFrequency="1" IsSnapToTickEnabled="True" />
-                        <TextBlock Text="Miasto:"/>
-                        <TextBox x:Name="miastoAddPhone" IsEnabled="False" Text="{Binding TabZarzadzajArchitektamiVM.Miasto}"/>
-                        <TextBlock Text="Telefon:"/>
-                        <TextBox x:Name="telefonAddPhone" Text="{Binding TabDodajTelefonVM.Numer}"/>
-                        <TextBlock Text="Typ:"/>
-                        <TextBox x:Name="typAddPhone" Text="{Binding TabDodajTelefonVM.Typ}"/>
-                        <TextBlock Text="Operator:"/>
-                        <TextBox x:Name="operatorAddPhone" Text="{Binding TabDodajTelefonVM.Operator}"/>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="1*"/>
-                                <ColumnDefinition Width="1*"/>
-                            </Grid.ColumnDefinitions>
-                            <Button x:Name="button_DodajAddPhone" Grid.Column="0" Content="Dodaj telefon do bazy"
+                            <Button x:Name="button_Dodaj4" Grid.Column="0" Content="Dodaj umowę do bazy"
                                     Margin="5"
-                                    Command="{Binding TabDodajTelefonVM.Dodaj}"
-                                    IsEnabled="{Binding TabDodajTelefonVM.DodawanieDostepne, Mode=OneWay}"
+                                    Command="{Binding TabZarzadzajUmowamiVM.Dodaj}"
+                                    IsEnabled="{Binding TabZarzadzajUmowamiVM.DodawanieDostepne, Mode=OneWay}"
                              />
-                            --><!-- Poki co nie ruszam edycji--><!--
-                            <Button x:Name="button_EdytujAddPhone" Grid.Column="1" Content="Edytuj_MozeZrobie" 
+                            <Button x:Name="button_Edytuj4" Grid.Column="1" Content="Edytuj" 
                                     Margin="5"
-                                    Command="{Binding TabDodajTelefonVM.Edytuj}"
-                                    IsEnabled="False"
-                            />
-                            --><!--{Binding TabZarzadzajArchitektamiVM.EdycjaDostepna, Mode=OneWay}"--><!--
+                                    Command="{Binding TabZarzadzajUmowamiVM.Edytuj}"
+                                    IsEnabled="{Binding TabZarzadzajUmowamiVM.EdycjaDostepna, Mode=OneWay}"
+                             />
                         </Grid>
+                        <Button x:Name="button_Usun4" Grid.Column="1" Content="Usuń" Width="150px"
+                                    Margin="5"
+                                    Command="{Binding TabZarzadzajUmowamiVM.Usun}"
+                                    IsEnabled="{Binding TabZarzadzajUmowamiVM.UsunDostepne, Mode=OneWay}"
+                             />
                     </StackPanel>
-                    --><!-- LISTA OSOB  --><!--
+                    <!-- LISTA UMÓW  -->
                     <DataGrid 
-                        x:Name="dg_osobyAddPhone"
+                        x:Name="dg_osoby4"
                         Grid.Column="1"
                         AutoGenerateColumns="False"
                         Margin="5"
                         AlternatingRowBackground="Lavender"
                         GridLinesVisibility="None"
                         IsReadOnly="True"
-                        ItemsSource="{Binding TabZarzadzajArchitektamiVM.Osoby}"
-                        SelectedItem="{Binding TabDodajTelefonVM.BiezacaOsoba}"
-                        SelectedIndex="{Binding TabZarzadzajArchitektamiVM.IdZaznaczenia, Mode=TwoWay}"    
+                        ItemsSource="{Binding TabZarzadzajUmowamiVM.Umowy}"
+                        SelectedItem="{Binding TabZarzadzajUmowamiVM.BiezacaUmowa, Mode=TwoWay}"
+                        SelectedIndex="{Binding TabZarzadzajUmowamiVM.IdZaznaczenia, Mode=TwoWay}"    
                             
                     >
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Nazwisko" Binding="{Binding Nazwisko}"/>
-                            <DataGridTextColumn Header="Imię" Binding="{Binding Imie}"/>
-                            <DataGridTextColumn Header="Wiek" Binding="{Binding Wiek}"/>
-                            <DataGridTextColumn Header="Miasto" Binding="{Binding Miasto}"/>
+                            <DataGridTextColumn Header="Nazwa umowy" Binding="{Binding Nazwa}"/>
+                            <DataGridTextColumn Header="Projekt" Binding="{Binding NazwaProjektu}"/>
+                            <DataGridTextColumn Header="Klient" Binding="{Binding Klient}"/>
+                            <DataGridTextColumn Header="Data Zawarcia" Binding="{Binding DataZawarcia}"/>
+                            <DataGridTextColumn Header="Termin realizacji" Binding="{Binding TerminOstateczny}"/>
                         </DataGrid.Columns>
 
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="SelectionChanged">
-                                <i:InvokeCommandAction Command="{Binding TabZarzadzajArchitektamiVM.LadujFormularz}"/>
+                                <i:InvokeCommandAction Command="{Binding TabZarzadzajUmowamiVM.LadujFormularz}"/>
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
                     </DataGrid>
                 </Grid>
-            </TabItem>-->
+            </TabItem>
+
 
         </TabControl>
     </Grid>

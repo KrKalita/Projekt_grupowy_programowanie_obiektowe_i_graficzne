@@ -43,7 +43,7 @@ namespace Znajomi.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("root")]
+        [global::System.Configuration.DefaultSettingValueAttribute("firma")]
         public string userID {
             get {
                 return ((string)(this["userID"]));
@@ -52,7 +52,7 @@ namespace Znajomi.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Zaq12wsx")]
+        [global::System.Configuration.DefaultSettingValueAttribute("firmaXYZ")]
         public string paswd {
             get {
                 return ((string)(this["paswd"]));

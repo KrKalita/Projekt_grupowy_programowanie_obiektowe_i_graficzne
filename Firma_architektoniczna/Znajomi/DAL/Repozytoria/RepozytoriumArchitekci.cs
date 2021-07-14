@@ -14,6 +14,7 @@ namespace Znajomi.DAL.Repozytoria
     {   
         #region ZAPYTANIA
         private const string WSZYSCY_ARCHITEKCI = "SELECT * FROM architekci";
+        private const string POBIERZ_ARCHITEKTA = "SELECT * FROM architekci WHERE pesel=";
         private const string DODAJ_ARCHITEKTA = "INSERT INTO `firma_architektoniczna`.`architekci`(`pesel`, `imię`, `nazwisko`, `numer`) VALUES ";
         #endregion
 

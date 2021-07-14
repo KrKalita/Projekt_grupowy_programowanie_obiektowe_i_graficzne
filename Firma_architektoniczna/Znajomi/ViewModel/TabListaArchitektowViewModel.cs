@@ -12,9 +12,7 @@ namespace Znajomi.ViewModel
     using BaseClass;
     using System.Windows.Input;
 
-    /// <summary>
-    /// Model widoku dla karty Lista
-    /// </summary>
+
     class TabListaArchitektowViewModel : ViewModelBase
     {
         #region Składowe prywatne
@@ -32,7 +30,6 @@ namespace Znajomi.ViewModel
         {
             this.model = model;
             architekci = model.Architekci;
-            umowy = model.Umowy;
         }
         #endregion
 
