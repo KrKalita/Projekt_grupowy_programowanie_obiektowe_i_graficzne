@@ -338,12 +338,12 @@ namespace Znajomi.ViewModel
                     usun = new RelayCommand(
                     arg =>
                     {
-                        if (MessageBox.Show("Jesteś pewien, że chcesz usunąć Projekt?", "Czy chcesz usunąć?", MessageBoxButton.YesNo, MessageBoxImage.Warning)
+                        if (MessageBox.Show("Jesteś pewien, że chcesz usunąć Projekt i umowy z nim związane?", "Czy chcesz usunąć?", MessageBoxButton.YesNo, MessageBoxImage.Warning)
                         == MessageBoxResult.Yes)
                         {
                             model.UsunProjektZBazy(BiezacyProjekt.Nazwa_projektu);
                             CzyscFormularz();
-                            System.Windows.MessageBox.Show("Projekt został usunięty!");
+                            System.Windows.MessageBox.Show("Projekt został usunięty i jesli mial umowe to tez zostala usunieta!");
                         }
                     }
                          ,

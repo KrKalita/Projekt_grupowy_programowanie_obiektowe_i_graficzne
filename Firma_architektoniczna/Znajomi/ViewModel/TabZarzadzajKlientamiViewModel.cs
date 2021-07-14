@@ -336,12 +336,12 @@ namespace Znajomi.ViewModel
                     usun = new RelayCommand(
                     arg =>
                     {
-                        if (MessageBox.Show("Jesteś pewien, że chcesz usunąć Klienta?", "Czy chcesz usunąć?", MessageBoxButton.YesNo, MessageBoxImage.Warning)
+                        if (MessageBox.Show("Jesteś pewien, że chcesz usunąć Klienta i umowy z nim związane?", "Czy chcesz usunąć?", MessageBoxButton.YesNo, MessageBoxImage.Warning)
                         == MessageBoxResult.Yes)
                         {
                             model.UsunKlientaZBazy(BiezacyKlient.Nazwa_klienta);
                             CzyscFormularz();
-                            System.Windows.MessageBox.Show("Klient został usunięty!");
+                            System.Windows.MessageBox.Show("Klient został usunięty i jesli mial umowe to tez zostala usunieta!");
                         }
                     }
                          ,

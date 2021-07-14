@@ -73,11 +73,14 @@ namespace Znajomi.DAL.Repozytoria
             using (var connection = DBConnection.Instance.Connection)
             {
                 string USUN_KLIENTA = $"DELETE FROM `klienci` WHERE nazwa_klienta='{nazwa_klienta}'";
-
+                string USUN_UMOWE = $"DELETE FROM `umowy` WHERE nazwa_klienta={"\"" + nazwa_klienta + "\""};";
+                MySqlCommand command2 = new MySqlCommand(USUN_UMOWE, connection);
                 MySqlCommand command = new MySqlCommand(USUN_KLIENTA, connection);
                 connection.Open();
-                var n = command.ExecuteNonQuery();
-                if (n == 1) stan = true;
+                var n1 = command2.ExecuteNonQuery();
+                var n2 = command.ExecuteNonQuery();
+                if (n1 == 1) stan = true;
+                if (n2 == 1) stan = true;
 
                 connection.Close();
             }
