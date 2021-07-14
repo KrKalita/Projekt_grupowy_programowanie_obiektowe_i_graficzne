@@ -18,10 +18,10 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Baza danych: `firma_architektoniczna_test`
+-- Baza danych: `firma_architektoniczna`
 --
-CREATE DATABASE IF NOT EXISTS `firma_architektoniczna_test` DEFAULT CHARACTER SET utf8 COLLATE utf8_polish_ci;
-USE `firma_architektoniczna_test`;
+CREATE DATABASE IF NOT EXISTS `firma_architektoniczna` DEFAULT CHARACTER SET utf8 COLLATE utf8_polish_ci;
+USE `firma_architektoniczna`;
 
 -- --------------------------------------------------------
 
