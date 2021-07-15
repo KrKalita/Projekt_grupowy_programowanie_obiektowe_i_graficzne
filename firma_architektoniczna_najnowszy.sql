@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 09 Cze 2021, 22:06
+-- Czas generowania: 06 Lip 2021, 15:22
 -- Wersja serwera: 10.4.18-MariaDB
 -- Wersja PHP: 8.0.3
 
@@ -41,7 +41,9 @@ CREATE TABLE `architekci` (
 --
 
 INSERT INTO `architekci` (`pesel`, `imię`, `nazwisko`, `numer`) VALUES
+('00112233442', 'Stefan', 'Burza', '111000555'),
 ('00282905147', 'Marta', 'Kirsch', '123123123'),
+('12345678901', 'Julia', 'Lis', '876000123'),
 ('45612367890', 'Jan', 'Kowalski', '555000888');
 
 -- --------------------------------------------------------
@@ -52,8 +54,8 @@ INSERT INTO `architekci` (`pesel`, `imię`, `nazwisko`, `numer`) VALUES
 
 CREATE TABLE `klienci` (
   `nazwa_klienta` char(255) COLLATE utf8_polish_ci NOT NULL,
-  `ilość_pracowników` int(11),
-  `wartość_na_rynku` double
+  `ilość_pracowników` int(11) DEFAULT NULL,
+  `wartość_na_rynku` double DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
 
 --
@@ -63,8 +65,6 @@ CREATE TABLE `klienci` (
 INSERT INTO `klienci` (`nazwa_klienta`, `ilość_pracowników`, `wartość_na_rynku`) VALUES
 ('Firma ABC', 567, 13500),
 ('Zakład IJK', 890, 20103);
-INSERT INTO `klienci` (`nazwa_klienta`) VALUES
-('t');
 
 -- --------------------------------------------------------
 
@@ -84,7 +84,8 @@ CREATE TABLE `projekty` (
 
 INSERT INTO `projekty` (`nazwa_projektu`, `cena`, `czas_wykonania`) VALUES
 ('Dom dwupiętrowy Alfred', 4500, 21),
-('Garaż podziemny jednostanowiskowy', 4201.45, 14);
+('Garaż podziemny jednostanowiskowy', 4201.45, 14),
+('Kawiarenka Mała', 6380, 30);
 
 -- --------------------------------------------------------
 
@@ -93,6 +94,7 @@ INSERT INTO `projekty` (`nazwa_projektu`, `cena`, `czas_wykonania`) VALUES
 --
 
 CREATE TABLE `umowy` (
+  `id` int(11) NOT NULL,
   `nazwa_projektu` char(255) COLLATE utf8_polish_ci NOT NULL,
   `nazwa_klienta` char(255) COLLATE utf8_polish_ci NOT NULL,
   `pesel` char(11) COLLATE utf8_polish_ci NOT NULL,
@@ -105,8 +107,11 @@ CREATE TABLE `umowy` (
 -- Zrzut danych tabeli `umowy`
 --
 
-INSERT INTO `umowy` (`nazwa_projektu`, `nazwa_klienta`, `pesel`, `nazwa_umowy`, `data_zawarcia`, `termin_ostateczny_do_zrealizowania_projektu`) VALUES
-('Dom dwupiętrowy Alfred', 'Firma ABC', '00282905147', 'Nowy dom', '2021-06-09', '2021-07-09');
+INSERT INTO `umowy` (`id`, `nazwa_projektu`, `nazwa_klienta`, `pesel`, `nazwa_umowy`, `data_zawarcia`, `termin_ostateczny_do_zrealizowania_projektu`) VALUES
+(1, 'Dom dwupiętrowy Alfred', 'Firma ABC', '00282905147', 'Nowy dom', '2021-07-04', '2021-07-23'),
+(2, 'Kawiarenka Mała', 'Zakład IJK', '45612367890', 'Nowa kawiarenka na ul. Długiej', '2021-07-08', '2021-08-20'),
+(3, 'Garaż podziemny jednostanowiskowy', 'Firma ABC', '12345678901', 'Plac garażowy w centrum miasta', '2021-06-06', '2021-07-02'),
+(4, 'Dom dwupiętrowy Alfred', 'Zakład IJK', '12345678901', 'Domek na wsi IJK', '2021-07-08', '2021-07-18');
 
 --
 -- Indeksy dla zrzutów tabel
@@ -134,9 +139,20 @@ ALTER TABLE `projekty`
 -- Indeksy dla tabeli `umowy`
 --
 ALTER TABLE `umowy`
+  ADD PRIMARY KEY (`id`),
   ADD KEY `architekt` (`pesel`),
   ADD KEY `nazwaKlienta` (`nazwa_klienta`),
   ADD KEY `nazwaProjektu` (`nazwa_projektu`);
+
+--
+-- AUTO_INCREMENT dla zrzuconych tabel
+--
+
+--
+-- AUTO_INCREMENT dla tabeli `umowy`
+--
+ALTER TABLE `umowy`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Ograniczenia dla zrzutów tabel

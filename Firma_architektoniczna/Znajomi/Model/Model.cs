@@ -126,7 +126,13 @@ namespace Znajomi.Model
             {
                 if (RepozytoriumUmowy.DodajUmoweDoBazy(umowa))
                 {
-                    Umowy.Add(umowa);
+                    //Umowy.Add(umowa);
+
+                    Umowy.Clear();
+                    var umowy = RepozytoriumUmowy.PobierzWszystkieUmowy();//var-typ automatyczny, c# sam wykmini jaki to typ
+                    foreach (var u in umowy)
+                        Umowy.Add(u);
+
                     return true;
                 }
             }
@@ -199,10 +205,16 @@ namespace Znajomi.Model
             if (RepozytoriumArchitekci.UsunArchitektaZBazy(pesel))
             {
                 Architekci.Clear();
-
                 var architekci = RepozytoriumArchitekci.PobierzWszystkichArchitektow();
                 foreach (var a in architekci)
                     Architekci.Add(a);
+
+                //odswiez umowy
+                Umowy.Clear();
+                var umowy = RepozytoriumUmowy.PobierzWszystkieUmowy();
+                foreach (var u in umowy)
+                    Umowy.Add(u);
+
                 return true;
             }
             return false;
@@ -246,6 +258,14 @@ namespace Znajomi.Model
                 var projekty = RepozytoriumProjekty.PobierzWszystkieProjekty();
                 foreach (var a in projekty)
                     Projekty.Add(a);
+
+
+                //odswiez umowy
+                Umowy.Clear();
+                var umowy = RepozytoriumUmowy.PobierzWszystkieUmowy();
+                foreach (var u in umowy)
+                    Umowy.Add(u);
+
                 return true;
             }
             return false;
@@ -274,6 +294,13 @@ namespace Znajomi.Model
                 var klienci = RepozytoriumKlienci.PobierzWszystkichKlientow();
                 foreach (var a in klienci)
                     Klienci.Add(a);
+
+                //odswiez umowy
+                Umowy.Clear();
+                var umowy = RepozytoriumUmowy.PobierzWszystkieUmowy();
+                foreach (var u in umowy)
+                    Umowy.Add(u);
+
                 return true;
             }
             return false;
