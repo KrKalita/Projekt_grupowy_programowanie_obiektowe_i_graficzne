@@ -46,7 +46,7 @@ namespace Znajomi.DAL.Encje
         // TStting to jest w zasadzie tylkko reprezentacja tekstowa obiektu
         public override string ToString()
         {
-            return $"{Nazwa_projektu} {Cena} {Czas_wykonania}";
+            return $"{Nazwa_projektu}, cena: {Cena}zł";
         }
 
         //metoda generuje string dla INSERT TO (nazwisko, imie, wiek, miasto)

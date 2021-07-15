@@ -123,7 +123,7 @@ namespace Znajomi.ViewModel
         }
         #endregion
 
-        //trzeba wyczyścic pole tekstowe trzeba zeby wprowadzic nowe dane
+        //trzeba wyczyścic pole tekstowe zeby wprowadzic nowe dane
         private void CzyscFormularz()
         {
             Nazwa_klienta = "";
@@ -208,8 +208,10 @@ namespace Znajomi.ViewModel
             if (Sprawdzenie3(Nazwa_klienta) && Sprawdzenie2(Ilosc_pracownikow) && Sprawdzenie1(Wartosc_na_rynku) && !wystepuje)
             {
                 DodawanieDostepne = true;
-                if (IdZaznaczenia != -1)
+                if (IdZaznaczenia != -1 && Nazwa_klienta == BiezacyKlient.Nazwa_klienta)
                     EdycjaDostepna = true;
+                else
+                    EdycjaDostepna = false;
             }
             //cos nie pasuje
             else
@@ -334,12 +336,12 @@ namespace Znajomi.ViewModel
                     usun = new RelayCommand(
                     arg =>
                     {
-                        if (MessageBox.Show("Jesteś pewien, że chcesz usunąć Klienta?", "Czy chcesz usunąć?", MessageBoxButton.YesNo, MessageBoxImage.Warning)
+                        if (MessageBox.Show("Jesteś pewien, że chcesz usunąć Klienta i umowy z nim związane?", "Czy chcesz usunąć?", MessageBoxButton.YesNo, MessageBoxImage.Warning)
                         == MessageBoxResult.Yes)
                         {
                             model.UsunKlientaZBazy(BiezacyKlient.Nazwa_klienta);
                             CzyscFormularz();
-                            System.Windows.MessageBox.Show("Klient został usunięty!");
+                            System.Windows.MessageBox.Show("Klient został usunięty i jesli mial umowe to tez zostala usunieta!");
                         }
                     }
                          ,

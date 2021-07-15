@@ -15,9 +15,6 @@ namespace Znajomi.ViewModel
     using System.Windows;
 
 
-    /// <summary>
-    /// Klasa reprezentująca model widoku dla karty Dodaj osoby
-    /// </summary>
     class TabZarzadzajArchitektamiViewModel:ViewModelBase
     {
         #region Składowe prywatne
@@ -141,7 +138,7 @@ namespace Znajomi.ViewModel
         }
         #endregion
 
-        //trzeba wyczyścic pole tekstowe trzeba zeby wprowadzic nowe dane
+        //trzeba wyczyścic pole tekstowe zeby wprowadzic nowe dane
         private void CzyscFormularz()
         {
             Imie = "";
@@ -175,8 +172,10 @@ namespace Znajomi.ViewModel
             if (imie_reg.IsMatch(Imie) && imie_reg.IsMatch(Nazwisko) && pesel_reg.IsMatch(Pesel) && tel_reg.IsMatch(Telefon) && !wystepuje)
             {
                 DodawanieDostepne = true;
-                if(IdZaznaczenia != -1)
+                if(IdZaznaczenia != -1 && Pesel == BiezacyArchitekt.Pesel)
                     EdycjaDostepna = true;
+                else
+                    EdycjaDostepna = false;
             }
             //cos nie pasuje
             else
@@ -301,12 +300,12 @@ namespace Znajomi.ViewModel
                     usun = new RelayCommand(
                     arg =>
                     {
-                        if (MessageBox.Show("Jesteś pewien, że chcesz usunąć architekta?", "Czy chcesz usunąć?", MessageBoxButton.YesNo, MessageBoxImage.Warning)
+                        if (MessageBox.Show("Jesteś pewien, że chcesz usunąć architekta i umowy z nim związane?", "Czy chcesz usunąć?", MessageBoxButton.YesNo, MessageBoxImage.Warning)
                         == MessageBoxResult.Yes)
                         {
                             model.UsunArchitektaZBazy(BiezacyArchitekt.Pesel);
                             CzyscFormularz();
-                            System.Windows.MessageBox.Show("Architekt został usunięty!");
+                            System.Windows.MessageBox.Show("Architekt został usunięty i jesli mial umowe to tez zostala usunieta!");
                         }
                     }
                          ,

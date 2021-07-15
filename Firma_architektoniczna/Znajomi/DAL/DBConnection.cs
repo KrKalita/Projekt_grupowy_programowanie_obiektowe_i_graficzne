@@ -21,7 +21,7 @@ namespace Znajomi.DAL
             } 
         }
 
-        public MySqlConnection Connection => new MySqlConnection(stringBuilder.ToString());
+        public MySqlConnection Connection => new MySqlConnection(stringBuilder.ToString()+ ";convert zero datetime=True");
             
         
         private DBConnection() {

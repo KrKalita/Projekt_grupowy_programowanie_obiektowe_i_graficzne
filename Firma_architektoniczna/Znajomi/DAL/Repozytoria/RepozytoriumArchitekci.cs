@@ -14,6 +14,7 @@ namespace Znajomi.DAL.Repozytoria
     {   
         #region ZAPYTANIA
         private const string WSZYSCY_ARCHITEKCI = "SELECT * FROM architekci";
+        private const string POBIERZ_ARCHITEKTA = "SELECT * FROM architekci WHERE pesel=";
         private const string DODAJ_ARCHITEKTA = "INSERT INTO `firma_architektoniczna`.`architekci`(`pesel`, `imię`, `nazwisko`, `numer`) VALUES ";
         #endregion
 
@@ -75,11 +76,14 @@ namespace Znajomi.DAL.Repozytoria
             using (var connection = DBConnection.Instance.Connection)
             {
                 string USUN_ARCHITEKTA = $"DELETE FROM `architekci` WHERE pesel='{pesel}'";
-
+                string USUN_UMOWE = $"DELETE FROM `umowy` WHERE pesel={pesel};";
+                MySqlCommand command2 = new MySqlCommand(USUN_UMOWE, connection);
                 MySqlCommand command = new MySqlCommand(USUN_ARCHITEKTA, connection);
                 connection.Open();
-                var n = command.ExecuteNonQuery();
-                if (n == 1) stan = true;
+                var n1 = command2.ExecuteNonQuery();
+                var n2 = command.ExecuteNonQuery();
+                if (n1 == 1) stan = true;
+                if (n2 == 1) stan = true;
 
                 connection.Close();
             }

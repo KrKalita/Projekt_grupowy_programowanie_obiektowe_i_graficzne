@@ -16,6 +16,7 @@ namespace Znajomi.DAL.Encje
         public string PeselArchitekta { get; set; }
         public string DataZawarcia { get; set; }
         public string TerminOstateczny { get; set; }
+        public string Id { get; set; }
         #endregion
 
         #region Konstruktory
@@ -25,8 +26,9 @@ namespace Znajomi.DAL.Encje
             Nazwa = reader["nazwa_umowy"].ToString();
             Klient = reader["nazwa_klienta"].ToString();
             NazwaProjektu = reader["nazwa_projektu"].ToString();
-            DataZawarcia = reader["data_zawarcia"].ToString();
-            TerminOstateczny = reader["termin_ostateczny_do_zrealizowania_projektu"].ToString();
+            DataZawarcia = reader.GetDateTime("data_zawarcia").ToString("yyyy'-'MM'-'dd");
+            TerminOstateczny = reader.GetDateTime("termin_ostateczny_do_zrealizowania_projektu").ToString("yyyy'-'MM'-'dd");
+            Id = reader["id"].ToString();
 
         }
 
@@ -48,6 +50,11 @@ namespace Znajomi.DAL.Encje
         public override string ToString()
         {
             return $"{Nazwa}, projekt: {NazwaProjektu}, termin: {TerminOstateczny}";
+        }
+
+        public string ToInsert()
+        {
+            return $"('{NazwaProjektu}','{Klient}','{PeselArchitekta}','{Nazwa}','{DataZawarcia}','{TerminOstateczny}')";
         }
         #endregion
     }
