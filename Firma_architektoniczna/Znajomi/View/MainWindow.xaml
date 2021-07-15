@@ -8,7 +8,7 @@
         xmlns:vm="clr-namespace:Znajomi.ViewModel"
        
         mc:Ignorable="d"
-        Title="Znajomi" Height="450" Width="800">
+        Title="Firma architektoniczna" Height="450" Width="800">
     
     <Window.Resources>
         <vm:MainViewModel x:Key="mainVM"/>
@@ -18,7 +18,7 @@
         <!-- pojemnik na zakladki -->
         <TabControl>
             <!-- zakladka -->
-            <TabItem x:Name="lista_architektow" Header="Lista Architektow">
+            <TabItem x:Name="lista_architektow" Header="Lista architektów">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="10*"/>
@@ -147,7 +147,7 @@
             </TabItem>
 
             <!-- zakladka -->
-            <TabItem x:Name="lista_klientow" Header="Lista Klientów">
+            <TabItem x:Name="lista_klientow" Header="Lista klientów">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="10*"/>
@@ -250,7 +250,7 @@
             </TabItem>
             
             <!-- zakladka -->
-            <TabItem x:Name="zarzadzajArchitektami" Header="Zarzadzaj Architektami">
+            <TabItem x:Name="zarzadzajArchitektami" Header="Zarządzaj architektami">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="2*"/>
@@ -319,7 +319,7 @@
             </TabItem>
 
             <!-- zakladka -->
-            <TabItem x:Name="zarzadzajProjektami" Header="Zarzadzaj Projektami">
+            <TabItem x:Name="zarzadzajProjektami" Header="Zarządzaj projektami">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="2*"/>
@@ -385,7 +385,7 @@
             </TabItem>
 
             <!-- zakladka -->
-            <TabItem x:Name="zarzadzajKlientami" Header="Zarzadzaj Klientami">
+            <TabItem x:Name="zarzadzajKlientami" Header="Zarządzaj klientami">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="2*"/>
@@ -451,7 +451,7 @@
             </TabItem>
 
             <!-- zakladka -->
-            <TabItem x:Name="zarzadzajUmowami" Header="Zarzadzaj Umowami">
+            <TabItem x:Name="zarzadzajUmowami" Header="Zarządzaj umowami">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="2*"/>
