@@ -20,7 +20,7 @@ namespace Znajomi.DAL.Encje
         //bardzo przydatny konstruktor tworzy obiekt na podstawie MySQLDataReader
         public Projekt(MySqlDataReader reader)
         {
-            Nazwa_projektu = reader["nazwa_projektu"].ToString();//tostring zmienia typ na string//sbyte.Parse zmiana typu na sbyte//ostatecznie typ sbyte(typ liczbowy)
+            Nazwa_projektu = reader["nazwa_projektu"].ToString();//tostring zmienia typ na string
             Cena = reader["cena"].ToString();
             Czas_wykonania = reader["czas_wykonania"].ToString();
         }

@@ -217,7 +217,7 @@ namespace Znajomi.ViewModel
             else
             {
                 DodawanieDostepne = false;
-                //warunki dla edycji - wszystko pasuje, a pesel jest ten sam co zaznaczonego architekta
+                //warunki dla edycji - wszystko pasuje, a nazwa_klienta jest ta sama co zaznaczonego klienta
                 if (Sprawdzenie3(Nazwa_klienta) && Sprawdzenie2(Ilosc_pracownikow) && Sprawdzenie1(Wartosc_na_rynku) && IdZaznaczenia != -1 && Nazwa_klienta == BiezacyKlient.Nazwa_klienta)
                     EdycjaDostepna = true;
                 else

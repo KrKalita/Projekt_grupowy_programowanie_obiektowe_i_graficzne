@@ -21,8 +21,8 @@ namespace Znajomi.DAL.Encje
         //bardzo przydatny konstruktor tworzy obiekt na podstawie MySQLDataReader
         public Architekt(MySqlDataReader reader)
         {
-            Pesel = reader["pesel"].ToString();//tostring zmienia typ na string//sbyte.Parse zmiana typu na sbyte//ostatecznie typ sbyte(typ liczbowy)
-            Imie = reader["imię"].ToString();//tu string sam
+            Pesel = reader["pesel"].ToString();//tostring zmienia typ na string
+            Imie = reader["imię"].ToString();
             Nazwisko = reader["nazwisko"].ToString();
             Numer = reader["numer"].ToString();
         }
@@ -34,7 +34,7 @@ namespace Znajomi.DAL.Encje
             Nazwisko = nazwisko.Trim();
             Numer = telefon.Trim();
         }
-
+        //konstruktor
         public Architekt(Architekt architekt)
         {
             Pesel = architekt.Pesel;

@@ -22,14 +22,14 @@ namespace Znajomi.DAL.Repozytoria
         /// <returns></returns>
         public static List<Klient> PobierzWszystkichKlientow()
         {
-            List<Klient> klienci = new List<Klient>();//lista z obiektami osoby
+            List<Klient> klienci = new List<Klient>();//lista z obiektami klienta
             using (var connection = DBConnection.Instance.Connection)//wykorzystuje sie do polaczenia z baza danych/chroni przed skutkami bledow
             {
                 MySqlCommand command = new MySqlCommand(WSZYSCY_KLIENCI, connection);//obiekt typu mysqlcommand/tworze kwerende/klasa mysqlcommand wbudowana w system
                 connection.Open();//otwiera polaczenie
                 var reader = command.ExecuteReader();//wykonuje sie zapytanie do bazy danych i pobiera sie wynik z tego zapytania //dla select
                 while (reader.Read())//read-odczytuje jeden wiersz wyniku
-                    klienci.Add(new Klient(reader));//dodaje do lista z obiektami osoby
+                    klienci.Add(new Klient(reader));//dodaje do lista z obiektami klienta
                 connection.Close();//zamyka polaczenie
             }
             return klienci;

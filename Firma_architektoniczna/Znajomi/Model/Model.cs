@@ -14,17 +14,17 @@ namespace Znajomi.Model
     class Model
     {
         //stan bazy
-        public ObservableCollection<Architekt> Architekci { get; set; } = new ObservableCollection<Architekt>();//przechowuje liste osob z bazy danych
+        public ObservableCollection<Architekt> Architekci { get; set; } = new ObservableCollection<Architekt>();//przechowuje liste architektow z bazy danych
 
-        public ObservableCollection<Umowa> Umowy { get; set; } = new ObservableCollection<Umowa>();//przechowuje liste osob z bazy danych
+        public ObservableCollection<Umowa> Umowy { get; set; } = new ObservableCollection<Umowa>();//przechowuje liste umow z bazy danych
 
-        public ObservableCollection<Projekt> Projekty { get; set; } = new ObservableCollection<Projekt>();//przechowuje liste osob z bazy danych
-        public ObservableCollection<Klient> Klienci { get; set; } = new ObservableCollection<Klient>();//przechowuje liste osob z bazy danych
+        public ObservableCollection<Projekt> Projekty { get; set; } = new ObservableCollection<Projekt>();//przechowuje liste projektow z bazy danych
+        public ObservableCollection<Klient> Klienci { get; set; } = new ObservableCollection<Klient>();//przechowuje liste klientow z bazy danych
 
 
         public Model()
         {
-            //pobranie dabych z bazy do kolekcji
+            //pobranie danych z bazy do kolekcji
             var architekci = RepozytoriumArchitekci.PobierzWszystkichArchitektow();//var-typ automatyczny, c# sam wykmini jaki to typ
             foreach (var a in architekci)
                 Architekci.Add(a);//dodanie architekta
@@ -126,8 +126,6 @@ namespace Znajomi.Model
             {
                 if (RepozytoriumUmowy.DodajUmoweDoBazy(umowa))
                 {
-                    //Umowy.Add(umowa);
-
                     Umowy.Clear();
                     var umowy = RepozytoriumUmowy.PobierzWszystkieUmowy();//var-typ automatyczny, c# sam wykmini jaki to typ
                     foreach (var u in umowy)

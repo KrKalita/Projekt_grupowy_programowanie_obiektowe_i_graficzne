@@ -22,14 +22,14 @@ namespace Znajomi.DAL.Repozytoria
         /// <returns></returns>
         public static List<Projekt> PobierzWszystkieProjekty()
         {
-            List<Projekt> projekty = new List<Projekt>();//lista z obiektami osoby
+            List<Projekt> projekty = new List<Projekt>();//lista z obiektami projekt
             using (var connection = DBConnection.Instance.Connection)//wykorzystuje sie do polaczenia z baza danych/chroni przed skutkami bledow
             {
                 MySqlCommand command = new MySqlCommand(WSZYSTKIE_PROJEKTY, connection);//obiekt typu mysqlcommand/tworze kwerende/klasa mysqlcommand wbudowana w system
                 connection.Open();//otwiera polaczenie
                 var reader = command.ExecuteReader();//wykonuje sie zapytanie do bazy danych i pobiera sie wynik z tego zapytania //dla select
                 while (reader.Read())//read-odczytuje jeden wiersz wyniku
-                    projekty.Add(new Projekt(reader));//dodaje do lista z obiektami osoby
+                    projekty.Add(new Projekt(reader));//dodaje do lista z obiektami projekt
                 connection.Close();//zamyka polaczenie
             }
             return projekty;

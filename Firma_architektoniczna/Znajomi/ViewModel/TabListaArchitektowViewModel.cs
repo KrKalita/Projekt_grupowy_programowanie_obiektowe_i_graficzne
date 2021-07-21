@@ -41,7 +41,7 @@ namespace Znajomi.ViewModel
             set
             {
                 indeksZaznaczonegoArchitekta = value;
-                onPropertyChanged(nameof(IndeksZaznaczonegoArchitekta));
+                onPropertyChanged(nameof(IndeksZaznaczonegoArchitekta));//to robie zeby zaktualizowalo IndeksZaznaczonegoArchitekta
             }
         }
 

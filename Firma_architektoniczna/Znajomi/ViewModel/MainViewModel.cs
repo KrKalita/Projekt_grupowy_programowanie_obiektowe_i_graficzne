@@ -16,7 +16,7 @@ namespace Znajomi.ViewModel
     class MainViewModel
     {
         //stworzenie instancji(obiektu) modelu
-        private Model model = new Model();//model to obiekt z 3 listami
+        private Model model = new Model();//model to obiekt z 4 listami
 
         public TabListaArchitektowViewModel TabListaArchitektowVM { get; set; }
         public TabListaKlientowViewModel TabListaKlientowVM { get; set; }

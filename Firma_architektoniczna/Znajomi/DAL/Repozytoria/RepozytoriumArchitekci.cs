@@ -25,14 +25,14 @@ namespace Znajomi.DAL.Repozytoria
         /// <returns></returns>
         public static List<Architekt> PobierzWszystkichArchitektow()
         {
-            List<Architekt> architekci = new List<Architekt>();//lista z obiektami osoby
+            List<Architekt> architekci = new List<Architekt>();//lista z obiektami architekta
             using (var connection = DBConnection.Instance.Connection)//wykorzystuje sie do polaczenia z baza danych/chroni przed skutkami bledow
             {
                 MySqlCommand command = new MySqlCommand(WSZYSCY_ARCHITEKCI, connection);//obiekt typu mysqlcommand/tworze kwerende/klasa mysqlcommand wbudowana w system
                 connection.Open();//otwiera polaczenie
                 var reader=command.ExecuteReader();//wykonuje sie zapytanie do bazy danych i pobiera sie wynik z tego zapytania //dla select
                 while (reader.Read())//read-odczytuje jeden wiersz wyniku
-                    architekci.Add(new Architekt(reader));//dodaje do lista z obiektami osoby
+                    architekci.Add(new Architekt(reader));//dodaje do lista z obiektami architekta
                 connection.Close();//zamyka polaczenie
             }
                 return architekci;
@@ -60,11 +60,11 @@ namespace Znajomi.DAL.Repozytoria
                 string EDYTUJ_ARCHITEKTA = $"UPDATE architekci SET pesel='{architekt.Pesel}', imię='{architekt.Imie}', nazwisko='{architekt.Nazwisko}', " +
                     $"numer='{architekt.Numer}' WHERE pesel='{pesel}'";
 
-                MySqlCommand command = new MySqlCommand(EDYTUJ_ARCHITEKTA, connection);
+                MySqlCommand command = new MySqlCommand(EDYTUJ_ARCHITEKTA, connection);//tworzymy zapytanie
                 connection.Open();
-                var n = command.ExecuteNonQuery();
-                if(n==1) stan = true;
-               
+                var n = command.ExecuteNonQuery();//wykonujemy zapytanie do bazy danych 
+                if (n==1) stan = true;//sprawdzamy czy sie wykonało zapytanie poprawnie
+
                 connection.Close();
             }
             return stan;

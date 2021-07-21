@@ -46,7 +46,7 @@ namespace Znajomi.ViewModel
             {
                 nazwa_projektu = value;
 
-                onPropertyChanged(nameof(Nazwa_projektu));//to robie zeby zaktualizowalo kolumne imie
+                onPropertyChanged(nameof(Nazwa_projektu));//to robie zeby zaktualizowalo kolumne Nazwa_projektu
 
                 SprawdzPoprawnoscDanych();
             }

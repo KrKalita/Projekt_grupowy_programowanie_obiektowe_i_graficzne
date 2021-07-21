@@ -11,7 +11,7 @@ namespace Znajomi.DAL
     class DBConnection
     {
         private MySqlConnectionStringBuilder stringBuilder = new MySqlConnectionStringBuilder();
-        
+
         private static DBConnection instance = null;
         public static DBConnection Instance { 
             get { 
@@ -20,6 +20,7 @@ namespace Znajomi.DAL
                 return instance; 
             } 
         }
+
 
         public MySqlConnection Connection => new MySqlConnection(stringBuilder.ToString()+ ";convert zero datetime=True");
             
